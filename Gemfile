@@ -4,7 +4,7 @@ gem 'jekyll'
 
 # Core plugins that directly affect site building
 group :jekyll_plugins do
-    gem 'wdm', '>= 0.1.0' if Gem.win_platform? # Windows-specific dependency for Jekyll
+    gem 'wdm', '>= 0.1.0', platforms: [:mswin, :mingw, :x64_mingw]
     gem 'jekyll-3rd-party-libraries'
     gem 'jekyll-archives-v2'
     gem 'jekyll-cache-bust'
