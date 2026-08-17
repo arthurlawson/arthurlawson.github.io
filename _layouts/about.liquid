@@ -1,0 +1,87 @@
+---
+layout: default
+---
+<div class="post">
+  <article>
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center w-100" style="gap: 80px; margin-top: 100px !important;">
+      
+      <!-- Left Column: Bio & Buttons -->
+      <div style="flex: 1; min-width: 280px; max-width: 500px;">
+        <p class="text-muted text-uppercase mb-2" style="font-size: 0.75rem; font-weight: 450; letter-spacing: 1.7px;">
+          A Portfolio Showcase
+        </p>
+        
+        <h1 class="display-4 font-weight-normal mb-4" style="font-family: 'Playfair Display', Georgia, serif; font-size: 3.8rem; margin-top: 0px; letter-spacing: 0px;">
+          {{ site.first_name }} {{ site.last_name }}
+        </h1>
+        
+        <div class="bio-content text-muted mb-5" style="line-height: 1.6; font-size: 1.05rem; font-weight: 300; text-align: justify; letter-spacing: 0.2px;">
+          {{ content }}
+        </div>
+        
+        <!-- Left-Aligned Button Spacing -->
+        <div class="d-flex flex-wrap align-items-center justify-content-between mt-4" style="width: 100%;">
+          <a href="/" class="btn font-weight-bold text-uppercase" style="border: 1px solid var(--global-text-color) !important; border-radius: 6px !important; font-size: 0.8rem; letter-spacing: 1px; width: calc(33.33% - 12px); text-align: center; color: var(--global-bg-color) !important; background-color: var(--global-text-color) !important; line-height: 1.5 !important; padding-top: 8px !important; padding-bottom: 8px !important;">View Projects</a>
+          <a href="/" class="btn font-weight-bold text-uppercase" style="border: 1px solid var(--global-text-color) !important; border-radius: 6px !important; font-size: 0.8rem; letter-spacing: 1px; width: calc(33.33% - 12px); text-align: center; color: var(--global-text-color) !important; background-color: transparent !important; line-height: 1.5 !important; padding-top: 8px !important; padding-bottom: 8px !important;">Resume</a>
+          <a href="mailto:ArthurLawsonBusiness@gmail.com" class="btn font-weight-bold text-uppercase" style="border: 1px solid var(--global-text-color) !important; border-radius: 6px !important; font-size: 0.8rem; letter-spacing: 1px; width: calc(33.33% - 12px); text-align: center; color: var(--global-text-color) !important; background-color: transparent !important; line-height: 1.5 !important; padding-top: 8px !important; padding-bottom: 8px !important;">Contact</a>
+        </div>  
+      </div>
+
+      <!-- Right Column: Image -->
+      {% if page.profile %}
+      <div class="d-flex flex-column align-items-center align-items-md-end mt-md-0" style="width: 100%; max-width: 440px; min-width: 280px; flex-shrink: 0;">
+        {% if page.profile.image %}
+          {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
+          <div style="width: 100%; aspect-ratio: 1 / 1; overflow: hidden; border-radius: 50%; border: 3px solid var(--global-text-color);">
+            <img src="{{ profile_image_path | relative_url }}" class="img-fluid" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+          </div>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="skills-section" style="margin-top: 100px; margin-bottom: 20px;">
+  
+    <div style="border-top: 2px solid var(--global-divider-color); width: 100%; margin-top: 100px; margin-bottom: 30px;"></div>
+
+    <h2 class="font-weight-normal mb-5" style="font-family: 'Playfair Display', Georgia, serif; font-size: 2.2rem; margin-top: 0px; margin-bottom: 10px;">
+      Technical Stack
+    </h2>
+
+    <div class="row style-grid" style="gap: 30px 0;">
+      
+      <!-- Category 1: Robotics & Embedded -->
+      <div class="col-md-4">
+        <h3 class="h5 font-weight-bold text-uppercase mb-3" style="font-size: 0.85rem; letter-spacing: 1.5px; color: var(--global-theme-color);">Robotics & Embedded</h3>
+        <ul class="text-color" style="list-style-type: none; padding-left: 0; line-height: 2; font-size: 0.95rem; font-weight: 300;">
+          <li><span style="color: var(--global-text-color); font-weight: 400;">&#9642;</span> C++</li>
+          <li><span style="color: var(--global-text-color); font-weight: 400;">&#9642;</span> ESP32</li>
+          <li><span style="color: var(--global-text-color); font-weight: 400;">&#9642;</span> Arduino</li>
+          <li><span style="color: var(--global-text-color); font-weight: 400;">&#9642;</span> PID Control</li>
+          <li><span style="color: var(--global-text-color); font-weight: 400;">&#9642;</span> I2C / SPI Protocols</li>
+        </ul>
+      </div>
+
+      <!-- Category 2: Design & Fabrication -->
+      <div class="col-md-4">
+        <h3 class="h5 font-weight-bold text-uppercase mb-3" style="font-size: 0.85rem; letter-spacing: 1.5px; color: var(--global-theme-color);">Design & CAD</h3>
+        <ul class="text-color" style="list-style-type: none; padding-left: 0; line-height: 2; font-size: 0.95rem; font-weight: 300;">
+          <li><span style="color: var(--global-text-color); font-weight: 400;">&#9642;</span> SolidWorks</li>
+          <li><span style="color: var(--global-text-color); font-weight: 400;">&#9642;</span> Fusion 360</li>
+          <li><span style="color: var(--global-text-color); font-weight: 400;">&#9642;</span> KiCAD (PCB Design)</li>
+          <li><span style="color: var(--global-text-color); font-weight: 400;">&#9642;</span> 3D Printing (FDM)</li>
+        </ul>
+      </div>
+
+      <!-- Category 3: Software & Analysis -->
+      <div class="col-md-4">
+        <h3 class="h5 font-weight-bold text-uppercase mb-3" style="font-size: 0.85rem; letter-spacing: 1.5px; color: var(--global-theme-color);">Software & Analysis</h3>
+        <ul class="text-color" style="list-style-type: none; padding-left: 0; line-height: 2; font-size: 0.95rem; font-weight: 300;">
+          <li><span style="color: var(--global-text-color); font-weight: 400;">&#9642;</span> Python</li>
+          <li><span style="color: var(--global-text-color); font-weight: 400;">&#9642;</span> MATLAB</li>
+          <li><span style="color: var(--global-text-color); font-weight: 400;">&#9642;</span> Git Version Control</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
