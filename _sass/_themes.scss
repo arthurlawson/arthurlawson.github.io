@@ -6,9 +6,9 @@
 
 :root {
   color-scheme: light;
-  --global-bg-color: #EFE6DF;
+  --global-bg-color: #efe6df;
   --global-code-bg-color: #{v.$code-bg-color-light};
-  --global-text-color: #1C1A17;
+  --global-text-color: #1c1a17;
   --global-text-color-light: #{v.$grey-color};
   --global-theme-color: #{v.$purple-color};
   --global-hover-color: #{v.$purple-color};
@@ -78,10 +78,10 @@ html[data-theme="dark"] {
   color-scheme: dark;
   --global-bg-color: #000000;
   --global-code-bg-color: #{v.$code-bg-color-dark};
-  --global-text-color: #EFE6DF;
-  --global-text-color-dark: #9B8F79;
-  --global-theme-color: #EC9117;
-  --global-hover-color: #EC9117;
+  --global-text-color: #efe6df;
+  --global-text-color-dark: #9b8f79;
+  --global-theme-color: #ec9117;
+  --global-hover-color: #ec9117;
   --global-hover-text-color: #{v.$white-color};
   --global-footer-bg-color: #{v.$grey-color-light};
   --global-footer-text-color: #{v.$grey-color-dark};

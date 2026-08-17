@@ -2,9 +2,16 @@
   <!-- Nav Bar -->
   <nav id="navbar" class="navbar navbar-light navbar-expand-sm {% if site.navbar_fixed %}fixed-top{% else %}sticky-top{% endif %}" role="navigation">
     <div class="container">
-      <a class="navbar-brand title font-weight-lighter d-flex flex-column" href="{{ site.baseurl }}/" style="line-height: 1.1; padding-top: 0.8rem; padding-bottom: 0.8rem;">
+      <a
+        class="navbar-brand title font-weight-lighter d-flex flex-column"
+        href="{{ site.baseurl }}/"
+        style="line-height: 1.1; padding-top: 0.8rem; padding-bottom: 0.8rem;"
+      >
         <div style="font-size: 1.4rem; letter-spacing: 0.5px;">
-          <span class="font-weight-bold">{{ site.first_name }} {{ site.last_name }}</span>
+          <span class="font-weight-bold">
+            {{- site.first_name }}
+            {{ site.last_name -}}
+          </span>
         </div>
         <small class="text-muted" style="font-size: 0.65rem; font-weight: 300; letter-spacing: 1.7px; text-transform: uppercase; margin-top: 2px;">
           A Portfolio Showcase
