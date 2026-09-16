@@ -1,81 +1,49 @@
 ---
 layout: page
-title: project 1
-description: with background image
-img: assets/img/12.jpg
+title: Self Balancing Robot V2
+description: A drivable self-balancing robot that screams when it falls!
+img: assets\img\projects\self_balancing_robot_v2\cover.png
 importance: 1
-category: work
-related_publications: true
+category: fun
+related_publications: false
 ---
 
-Every project has a beautiful feature showcase page.
-It's easy to include images in a flexible 3-column grid format.
-Make your photos 1/3, 2/3, or full width.
+An advanced self-balancing robot utilizing the **ESP32-S3 (N16R8)** computing core, driven by a custom **Kalman Filter** and high-frequency **PID control loop** system. 
 
-To give your project a background in the portfolio page, just add the img tag to the front matter like so:
-
-    ---
-    layout: page
-    title: project
-    description: a project with a background image
-    img: /assets/img/12.jpg
-    ---
+This project features a fully **custom-designed main controller PCB, proudly sponsored and manufactured by JLCPCB**. Built entirely within the PlatformIO ecosystem, this hardware platform integrates an MPU6050 IMU, DRV8833 motor driver, 2S LiPo battery safety logic, lighting, and onboard speaker playback systems.
 
 <div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/1.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+    <!-- Image 1 (Takes up exactly half the width from mobile up) -->
+    <div class="col-sm-6 mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="assets/img/projects/self_balancing_robot_v2/chassis_up.jpg" title="Assembled Mechanical Chassis" class="img-fluid rounded z-depth-1" %}
     </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/3.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    Caption photos easily. On the left, a road goes through a tunnel. Middle, leaves artistically fall in a hipster photoshoot. Right, in another hipster photoshoot, a lumberjack grasps a handful of pine needles.
-</div>
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+    <!-- Image 2 (Takes up the other half of the width) -->
+    <div class="col-sm-6 mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="assets/img/projects/self_balancing_robot_v2/pcb.jpg" title="Custom PCB Details" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
-    This image can also have a caption. It's like magic.
+    Hardware Overview: The left image shows the fully assembled robot actively balancing. The right image displays the fully populated custom controller PCB designed by me and manufactured by JLCPCB.
 </div>
 
-You can also put regular text between your rows of images, even citations {% cite einstein1950meaning %}.
-Say you wanted to write a bit about your project before you posted the rest of the images.
-You describe how you toiled, sweated, _bled_ for your project, and then... you reveal its glory in the next row of images.
+## Core Features
 
-<div class="row justify-content-sm-center">
-    <div class="col-sm-8 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    You can also have artistically styled 2/3 + 1/3 images, like these.
-</div>
+*   **Advanced Estimation:** Custom Kalman Filter implementation paired with an MPU6050 IMU for precise roll angle determination.
+*   **Wireless Remote Control:** Directional steering control handled over a dedicated **ESP-NOW** wireless connection.
+*   **Motion Control:** Dual-motor balancing algorithms with custom gain scheduling to aid in active stabilization.
+*   **Hardware Protection:** Automated motor shutdown constraints to prevent destructive runaway crashes.
+*   **Power Management:** Active voltage checks safeguarding the 2S LiPo system from dropping beneath unsafe cell margins.
+*   **Audio & Visuals:** Integrated 2P Edison filament LEDs with status animations alongside real-time sample-synchronized audio playback configured to make the robot scream.
 
-The code is simple.
-Just wrap your images with `<div class="col-sm">` and place them inside `<div class="row">` (read more about the <a href="https://getbootstrap.com/docs/4.4/layout/grid/">Bootstrap Grid</a> system).
-To make images responsive, add `img-fluid` class to each; for rounded corners and shadows use `rounded` and `z-depth-1` classes.
-Here's the code for the last row of images above:
+<hr class="my-5">
 
-{% raw %}
+## Repository & Asset Downloads
 
-```html
-<div class="row justify-content-sm-center">
-  <div class="col-sm-8 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-  </div>
-  <div class="col-sm-4 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-  </div>
-</div>
-```
+All production files, mechanical CAD folders, firmware deployment packages, and assembly setup blueprints are completely open-source and hosted on GitHub.
 
-{% endraw %}
+👉 **[Download Files & View Project on GitHub](https://github.com/arthurlawson/self-balancing-robot-v2)**
+
+### Repository Highlights:
+*   **Bill of Materials:** Complete component checklist detailing the TT Motors, MPM3610 buck regulator, speaker setups, and fastener sizing.
+*   **Firmware Setup Guide:** Comprehensive `config.h` parameter walkthrough, audio tracking conversions, and PlatformIO environment properties.
+*   **Hardware Setup Guide:** Access to production-ready `.3mf` print structures, raw SolidWorks history logs, and factory-ready Gerber export packages.
