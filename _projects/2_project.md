@@ -1,81 +1,47 @@
 ---
 layout: page
-title: project 2
-description: a project with a background image and giscus comments
-img: assets/img/3.jpg
+title: Self Balancing Robot V1 (Prototype)
+description: The foundational autonomous proof-of-concept self-balancing robot.
+img: assets/img/projects/self-balancing-robot-v1/cover.jpg
 importance: 2
-category: draft
-giscus_comments: true
+category: fun
+related_publications: false
 ---
 
-Every project has a beautiful feature showcase page.
-It's easy to include images in a flexible 3-column grid format.
-Make your photos 1/3, 2/3, or full width.
+The original, foundational self-balancing robot utilizing the **ESP32-S3 (N16R8)** computing core, driven by a custom **Kalman Filter** and high-frequency **PID control loop** system. 
 
-To give your project a background in the portfolio page, just add the img tag to the front matter like so:
-
-    ---
-    layout: page
-    title: project
-    description: a project with a background image
-    img: /assets/img/12.jpg
-    ---
+This initial version was a raw engineering prototype built entirely within the ArduinoIDE toolchain to validate our baseline control loops and structural balancing physics before expanding into the upgraded V2 architecture. It focuses purely on autonomous upright stability.
 
 <div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/1.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+    <!-- Image 1 (Takes up exactly half the width from mobile up) -->
+    <div class="col-sm-6 mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="assets/img/projects/self-balancing-robot-v1/cover.jpg" title="Assembled Mechanical Chassis" class="img-fluid rounded z-depth-1" %}
     </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/3.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    Caption photos easily. On the left, a road goes through a tunnel. Middle, leaves artistically fall in a hipster photoshoot. Right, in another hipster photoshoot, a lumberjack grasps a handful of pine needles.
-</div>
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+    <!-- Image 2 (Takes up the other half of the width) -->
+    <div class="col-sm-6 mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="assets/img/projects/self-balancing-robot-v1/breadboard.jpg" title="Breadboard Layout" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
-    This image can also have a caption. It's like magic.
+    Prototype Overview: The left image shows the raw V1 hardware setup balancing autonomously. The right image shows the breadboard layout.
 </div>
 
-You can also put regular text between your rows of images.
-Say you wanted to write a little bit about your project before you posted the rest of the images.
-You describe how you toiled, sweated, _bled_ for your project, and then... you reveal its glory in the next row of images.
+## Core Features
 
-<div class="row justify-content-sm-center">
-    <div class="col-sm-8 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    You can also have artistically styled 2/3 + 1/3 images, like these.
-</div>
+*   **State Estimation:** Custom Kalman Filter implementation paired with an MPU6050 IMU for precise autonomous roll angle determination.
+*   **Non-Linear Control:** Closed-loop feedback PID controller mechanics featuring manual integral leak adjustments to prevent deadzone windup.
+*   **Dynamic Tuning:** Exponential gain-scaling algorithms that automatically scale motor loop coefficients during high-deviation tilts.
+*   **Power Management:** Active analog voltage checks safeguarding the 2S LiPo system from dropping beneath unsafe cell margins.
+*   **Crash Recovery:** Automated emergency motor shutdown constraints to instantly cut power if the platform tips over past 80 degrees.
 
-The code is simple.
-Just wrap your images with `<div class="col-sm">` and place them inside `<div class="row">` (read more about the <a href="https://getbootstrap.com/docs/4.4/layout/grid/">Bootstrap Grid</a> system).
-To make images responsive, add `img-fluid` class to each; for rounded corners and shadows use `rounded` and `z-depth-1` classes.
-Here's the code for the last row of images above:
+<hr class="my-5">
 
-{% raw %}
+## Repository & Asset Downloads
 
-```html
-<div class="row justify-content-sm-center">
-  <div class="col-sm-8 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-  </div>
-  <div class="col-sm-4 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-  </div>
-</div>
-```
+All production files, mechanical CAD structures, firmware deployment packages, and assembly blueprints for this legacy platform are completely open-source and hosted on GitHub.
 
-{% endraw %}
+👉 **[Download Files & View Project on GitHub](https://github.com/arthurlawson/self-balancing-robot-v1)**
+
+### Repository Highlights:
+*   **Firmware Code:** Access to our packaged local dependencies, modular custom PID filters, and raw Kalman matrix calculations.
+*   **CAD:** Access to the master SolidWorks (`.SLDPRT`) structural model file alongside print-ready, sliced assembly configurations (`.3mf`).

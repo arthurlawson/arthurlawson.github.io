@@ -2,7 +2,7 @@
 layout: page
 title: Self Balancing Robot V2
 description: A drivable self-balancing robot that screams when it falls!
-img: assets/img/projects/self_balancing_robot_v2/cover.jpg
+img: assets/img/projects/self-balancing-robot-v2/cover.jpg
 importance: 1
 category: fun
 related_publications: false
@@ -15,11 +15,11 @@ This project features a fully **custom-designed main controller PCB, proudly spo
 <div class="row">
     <!-- Image 1 (Takes up exactly half the width from mobile up) -->
     <div class="col-sm-6 mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/projects/self_balancing_robot_v2/chassis_up.jpg" title="Assembled Mechanical Chassis" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/projects/self-balancing-robot-v2/chassis_up.jpg" title="Assembled Mechanical Chassis" class="img-fluid rounded z-depth-1" %}
     </div>
     <!-- Image 2 (Takes up the other half of the width) -->
     <div class="col-sm-6 mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/projects/self_balancing_robot_v2/pcb.jpg" title="Custom PCB Details" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/projects/self-balancing-robot-v2/pcb.jpg" title="Custom PCB Details" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
