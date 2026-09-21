@@ -9,6 +9,7 @@ related_publications: false
 
 _styles: >
     .section-heading {
+        font-family: 'Playfair Display', Georgia, serif;
         font-size: 2.6rem;
         font-weight: normal;
         margin-top: 0px;
@@ -17,17 +18,17 @@ _styles: >
         letter-spacing: -0.5px;
     }
     .section-subheading {
+        font-family: 'Playfair Display', Georgia, serif;
         font-size: 1.9rem;
         font-weight: normal;
-        margin-top: 50px;
+        margin-top: 40px;
         margin-bottom: 30px;
         color: var(--global-text-color);
         letter-spacing: -0.5px;
     }
     .section-divider {
         border: 0;
-        border-top: 1px solid var(--global-text-color);
-        opacity: 0.5;
+        border-top: 1px solid var(--global-divider-color);
         width: 100%;
         margin-top: 60px;
         margin-bottom: 50px;
@@ -41,11 +42,12 @@ _styles: >
         min-width: 140px;
         display: inline-block;
         padding-top: 3px;
+        text-transform: uppercase;
     }
     .body-long {
-        line-height: 1.6;
+        line-height: 1.65;
         font-size: 1.1rem;
-        font-weight: 300;
+        font-weight: 350;
         text-align: justify;
         color: var(--global-text-color);
     }
@@ -56,11 +58,29 @@ _styles: >
         text-align: left;
         color: var(--global-text-color);
     }
+    .highlight {
+        color: var(--global-theme-color) !important;
+        font-weight: inherit !important;
+    }
+    .image-fig-text {
+        line-height: 1.6;
+        font-size: 0.85rem;
+        font-weight: 400;
+        min-width: auto;
+        padding: 0;
+        display: inline;
+        margin-top: 5px;
+        margin-right: 6px;
+        letter-spacing: 1.5px;
+        color: var(--global-theme-color);
+        display: inline-block;
+        text-transform: uppercase;
+    }
     .image-caption {
         font-size: 0.85rem !important;
         font-weight: 300 !important;
         letter-spacing: 0.3px !important;
-        margin-top: 1rem;
+        margin-top: 5px;
         text-align: center;
         color: var(--global-text-color);
         opacity: 0.8;
@@ -88,7 +108,7 @@ _styles: >
     /* --- Dynamic Scroll-Focus Classes --- */
     .focus-group {
         opacity: 0.4;
-        transition: opacity 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         will-change: opacity;
     }
     
@@ -98,7 +118,7 @@ _styles: >
 
     .sticky-media-column {
         opacity: 0.4;
-        transition: opacity 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         will-change: opacity;
     }
     
@@ -140,7 +160,7 @@ _styles: >
 ---
 
 <div class="synopsis-block">
-    <div class="d-flex flex-column flex-md-row align-items-start" style="margin-top: 20px; gap: 50px;">
+    <div class="d-flex flex-column flex-md-row align-items-start" style="margin-top: 40px; gap: 50px;">
     
         <!-- Left Side: Text (60% Width) -->
         <div class="w-100 w-md-60 d-flex flex-column justify-content-start">
@@ -150,15 +170,15 @@ _styles: >
                 <h2 class="section-heading">Project Synopsis</h2>
             
                 <p class="body-long">
-                    The V1 platform serves as the foundational hardware proof-of-concept for a <strong>Brushed DC Self-Balancing Robot</strong>.
+                    The V1 platform serves as the foundational hardware proof-of-concept for a <span class="highlight">Brushed DC Self-Balancing Robot</span>.
                 </p>
                 <p class="body-long">
-                    Developed entirely within the Arduino IDE toolchain, this initial prototype focused on establishing the real-time control loops 
-                    and verifying the ability to balance despite the inherent nonlinearities of encoderless Brushed DC motors.
+                    Developed entirely within the <span class="highlight">Arduino IDE toolchain</span>, this initial prototype focused on establishing the <span class="highlight">real-time control loops</span> 
+                    and verifying the ability to balance despite the inherent nonlinearities of <span class="highlight">encoderless Brushed DC Motors</span>.
                 </p>
             </div>
             
-            <div style="border-top: 1px solid var(--global-text-color); opacity: 0.5; width: 100%; margin-top: 30px; margin-bottom: 24px;"></div>
+            <div class="section-divider" style="width: 100%; margin-top: 30px; margin-bottom: 24px;"></div>
 
             <!-- Focus Group 2 -->
             <div class="focus-group" data-group="metadata">
@@ -190,7 +210,7 @@ _styles: >
             style="position: -webkit-sticky; position: sticky; top: 100px; z-index: 10;">
 
             <!-- Smart Media structural bounding container -->
-            <div class="smart-gif-frame" style="width: 100%; aspect-ratio: 1 / 1; border-radius: 6px; border: 2px solid var(--global-text-color); overflow: hidden; position: relative;">
+            <div class="smart-gif-frame hoverable" style="width: 100%; aspect-ratio: 1 / 1; border-radius: 6px; border: 2px solid var(--global-text-color); overflow: hidden; position: relative;">
                 
                 <!-- BASE LAYER: Static, unmoving placeholder photo handling the out-of-focus layout safely -->
                 <img class="frozen-gif-placeholder" 
@@ -208,13 +228,15 @@ _styles: >
             
             <!-- Minimalist Caption Centered Directly Below Frame -->
             <div class="image-caption">
-                V1 Prototype balancing demonstration under light external disturbances.
+                <span class="image-fig-text">Fig 1.1</span> 
+                V1 balancing demonstration under light external disturbances.
             </div>
 
         </div>
     </div>
 </div>
 
+<!-- Focus Group 3 -->
 <div class="focus-group" data-group="skills">
 
     <h3 class="section-subheading">
@@ -265,8 +287,17 @@ _styles: >
 
 <hr class="section-divider">
 
-## Bill of Materials (BOM) and Component Sourcing
-To establish a clear development history, all component selections, primary vendors, and unit costs are logged below:
+<!-- Bill of Materials -->
+<!-- Focus Group 4 -->
+<div class="focus-group" data-group="bom">
+
+<h2 class="section-heading">Bill of Materials (BOM)</h2>
+
+<p class="body-long" style="margin-bottom: 30px;">
+    To establish a clear development history, all component selections, primary vendors, and unit costs are logged below:
+</p>
+
+<div markdown="1">
 
 | Component Description | Part Specification (with link) | Primary Sourcing | Unit Cost (GBP) | Engineering Rationale |
 | :--- | :--- | :--- | :--- | :--- |
@@ -281,16 +312,90 @@ To establish a clear development history, all component selections, primary vend
 | **Miscellaneous** | 2x Half-size Breadboards (rails removed/merged), Assorted jumper wires | Sourced in-house | — | Rapid prototyping framework utilized for fast signal path adjustments. |
 | **Total Prototype Cost** | | | **£20.64** | |
 
-<hr class="my-5">
+</div>
 
-## Hardware and Electrical Schematics
-The electrical network was constructed across two half-sized breadboards, mated together with their power rails removed:
+</div>
 
-### Circuit Architecture Highlights
-* **Power Routing:** The 2S LiPo Battery delivers a raw 7.4V voltage directly to the DRV8833 motor driver pins. Concurrently, the MPM3610 step-down buck converter drops that shifting battery voltage down to 3.3V to drive the ESP32-S3 and IMU.
-* **Signal Topology:** The MPU6050 communicates with the ESP32-S3 over a dedicated hardware I2C bus operating at 400kHz clock speed to ensure low latency data retrieval.
+<hr class="section-divider">
 
-<hr class="my-5">
+<!-- Focus Group 3 -->
+<div class="focus-group" data-group="schematics">
+
+    <h2 class="section-heading">Hardware and Electrical Schematics</h2>
+
+    <p class="body-long" style="margin-bottom: 30px;">
+        The electrical network was constructed across two half-sized breadboards, mated together with their power rails removed:
+    </p>
+
+    <div class="row g-4" style="margin-bottom: 25px;">
+    
+        <!-- Left Column Frame: Physical Breadboard Prototype Showcase -->
+        <div class="col-12 col-md-6 d-flex flex-column align-items-center">
+            <!-- Aspect ratio set to standard 4/3 photography bounds -->
+            <div class="hoverable" style="width: 100%; aspect-ratio: 4 / 3; border-radius: 6px; border: 2px solid var(--global-text-color); overflow: hidden; background-color: var(--global-bg-overlay); position: relative; display: flex; align-items: center; justify-content: center;">
+                
+                <!-- Replace with the exact local directory path string to your physical setup photo -->
+                <img src="{{ 'assets/img/projects/self-balancing-robot-v1/breadboard.jpg' | relative_url }}" 
+                    alt="Physical Dual Half-Size Breadboard Prototyping Assembly" 
+                    style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                    
+            </div>
+            <div class="image-caption">
+                <span class="image-fig-text">Fig 1.2</span> 
+                Physical dual half-size breadboard assembly with wiring.
+            </div>
+        </div>
+
+        <!-- Right Column Frame: Professional Schematic CAD Blueprint Showcase -->
+        <div class="col-12 col-md-6 d-flex flex-column align-items-center">
+            <!-- Object fit set to contain to protect fine wire layout tracks without cropping symbols -->
+            <div class="hoverable" style="width: 100%; aspect-ratio: 4 / 3; border-radius: 6px; border: 2px solid var(--global-text-color); overflow: hidden; background-color: var(--global-bg-overlay); position: relative; display: flex; align-items: center; justify-content: center;">
+                
+                <!-- Replace with the exact local directory path string to your compiled vector drawing blueprint -->
+                <img src="{{ 'assets/img/projects/self-balancing-robot-v1/circuit-schematic.png' | relative_url }}" 
+                    alt="Electrical Circuit Diagram Schematic" 
+                    style="width: 110%; height: 110%; object-fit: fit; display: block;">
+                    
+            </div>
+            <div class="image-caption">
+                <span class="image-fig-text">Fig 1.3</span> 
+                Electrical circuit diagram schematic detailing logic lines and pin layouts.
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="focus-group" data-group="highlights">
+
+    <h3 class="section-subheading">
+        Circuit Architecture Highlights
+    </h3>
+
+    <div class="row g-5">
+
+        <div class="col-md-6 col-12 mb-4">
+            <div class="card-container">
+                <span class="card-title">Power Routing</span>
+                <p class="card-body">
+                    The 2S LiPo Battery delivers a raw 7.4V voltage directly to the DRV8833 motor driver pins. Concurrently, the MPM3610 step-down buck converter drops that shifting battery voltage down to 3.3V to drive the ESP32-S3 and IMU.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-12 mb-4">
+            <div class="card-container">
+                <span class="card-title">Signal Topology</span>
+                <p class="card-body">
+                    The MPU6050 communicates with the ESP32-S3 over a dedicated hardware I2C bus operating at 400kHz clock speed to ensure low latency data retrieval.
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<hr class="section-divider">
 
 ## Firmware Architecture & Control Algorithms
 The firmware executes on a non-blocking timing loop within the Arduino framework to ensure fixed-interval control updates.
@@ -358,7 +463,7 @@ All production files, mechanical CAD structures, firmware deployment packages, a
     Prototype Overview: The left image shows the raw V1 hardware setup balancing autonomously. The right image shows the breadboard layout.
 </div>
 
-<!-- Single-Focus Scroll Tracking Motor -->
+<!-- Production-Grade Low-Horizon Instant Focus Scroll Engine -->
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     const groups = document.querySelectorAll(".focus-group");
@@ -369,41 +474,48 @@ All production files, mechanical CAD structures, firmware deployment packages, a
     const isMobile = () => window.innerWidth < 768;
 
     function calculateActiveSpotlight() {
-      const viewportCenterY = window.innerHeight / 2;
+      // Pushed focus horizon line down to 55% of the viewport depth so text lights up early
+      const targetFocusHorizon = window.innerHeight * 0.55;
+      
       let closestGroup = null;
-      let minDistanceToCenter = Infinity;
+      let minDistanceToHorizon = Infinity;
 
-      // Track all groups to identify which one is mathematically centered
       groups.forEach((group) => {
         const ObjectRect = group.getBoundingClientRect();
-        const groupCenterY = ObjectRect.top + ObjectRect.height / 2;
-        const distanceToCenter = Math.abs(viewportCenterY - groupCenterY);
+        
+        // Track the top edge of the section to catch it early as it enters from the bottom fold
+        const groupTargetY = ObjectRect.top;
+        const distanceToHorizon = Math.abs(targetFocusHorizon - groupTargetY);
 
-        if (distanceToCenter < minDistanceToCenter) {
-          minDistanceToCenter = distanceToCenter;
+        // FIXED: Stripped out the undefined variable to fix the javascript crash
+        if (distanceToHorizon < minDistanceToHorizon) {
+          minDistanceToHorizon = distanceToHorizon;
           closestGroup = group;
         }
       });
 
-      // Spotlight only the single closest row segment
+      // Expanded overlap window ensures rows are bright way before your eyes land on them
       groups.forEach((group) => {
-        if (group === closestGroup) {
+        const ObjectRect = group.getBoundingClientRect();
+        
+        // Generous 120px peripheral buffer completely removes text pre-flickering or lag
+        if (group === closestGroup || (ObjectRect.top < targetFocusHorizon + 120 && ObjectRect.bottom > targetFocusHorizon - 120)) {
           group.classList.add("is-focused");
         } else {
           group.classList.remove("is-focused");
         }
       });
 
-      // Synchronize media visibility triggers across device breakpoints
+      // Synchronize media block visibility triggers cleanly
       if (mediaColumn) {
         const synopsisFocused = document.querySelector('[data-group="synopsis"]').classList.contains("is-focused");
         const metadataFocused = document.querySelector('[data-group="metadata"]').classList.contains("is-focused");
 
         let shouldFocusAndPlay = false;
         if (!isMobile() && synopsisFocused) {
-          shouldFocusAndPlay = true; // Desktop Bounds
+          shouldFocusAndPlay = true; 
         } else if (isMobile() && (synopsisFocused || metadataFocused)) {
-          shouldFocusAndPlay = true; // Mobile Bounds
+          shouldFocusAndPlay = true; 
         }
 
         if (shouldFocusAndPlay) {
@@ -414,11 +526,9 @@ All production files, mechanical CAD structures, firmware deployment packages, a
       }
     }
 
-    // Bind lean listeners to track real-time scrolling metrics fluidly
     window.addEventListener("scroll", calculateActiveSpotlight, { passive: true });
     window.addEventListener("resize", calculateActiveSpotlight, { passive: true });
     
-    // Fire initialization check to properly handle starting load positions
     calculateActiveSpotlight();
   });
 </script>
