@@ -109,20 +109,51 @@
   }
 
   .navbar-nav .nav-item .nav-link {
-    color: var(--global-text-color);
+    color: var(--global-text-color-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.5px; 
+    position: relative;
+    transition: color 0.4s ease;
+    padding-left: 1px;
+    padding-right: 1px;
+    margin-left: 8px;
+    margin-right: 8px;
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      transform: scaleX(0);
+      height: 1px;
+      bottom: 4px;
+      left: 0px;           
+      right: 0px;   
+      background-color: var(--global-theme-color);
+      transform-origin: bottom center;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
     &:hover {
-      color: var(--global-hover-color);
+      color: var(--global-text-color) !important;
+      text-decoration: none;
+
+      &::after {
+        transform: scaleX(1); /* Expand the line smoothly across the track width on hover */
+      }
     }
   }
 
   .navbar-nav .nav-item.active > .nav-link {
     background-color: inherit;
     font-weight: bolder;
-    color: var(--global-theme-color);
+    color: var(--global-text-color);
+
+    &::after {
+      transform: scaleX(1) !important;
+    }
 
     &:hover {
-      color: var(--global-hover-color);
+      color: var(--global-text-color);
     }
   }
 

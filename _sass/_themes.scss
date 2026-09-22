@@ -13,11 +13,12 @@
   --global-theme-color: #2F3CED;
   --global-hover-color: #2F3CED;
   --global-hover-text-color: #{v.$white-color};
+  --global-hover-shadow-color: #11142D; 
   --global-footer-bg-color: #{v.$grey-color-dark};
   --global-footer-text-color: #{v.$grey-color-light};
   --global-footer-link-color: #{v.$white-color};
   --global-distill-app-color: #{v.$grey-color};
-  --global-divider-color: rgba(17, 20, 45, 0.5);
+  --global-divider-color: rgba(17, 20, 45, 0.25);
   --global-card-bg-color: #{v.$white-color};
   --global-highlight-color: #{v.$red-color-dark};
   --global-back-to-top-bg-color: rgba(
@@ -83,11 +84,12 @@ html[data-theme="dark"] {
   --global-theme-color: #ec9117;
   --global-hover-color: #ec9117;
   --global-hover-text-color: #{v.$white-color};
+  --global-hover-shadow-color: #9b8f79;
   --global-footer-bg-color: #{v.$grey-color-light};
   --global-footer-text-color: #{v.$grey-color-dark};
   --global-footer-link-color: #{v.$black-color};
   --global-distill-app-color: #{v.$grey-color-light};
-  --global-divider-color: rgba(239, 230, 223, 0.5);
+  --global-divider-color: rgba(239, 230, 223, 0.25);
   --global-card-bg-color: #{v.$grey-900};
   --global-back-to-top-bg-color: rgba(
     #{color.channel(v.$white-color, "red", v.$space: rgb)},

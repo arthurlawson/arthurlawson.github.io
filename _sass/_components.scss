@@ -53,6 +53,7 @@ ul.task-list input[type="checkbox"] {
   }
 }
 
+// Lift and shadow
 .hoverable {
   transition:
     transform 0.22s ease,
@@ -60,19 +61,39 @@ ul.task-list input[type="checkbox"] {
 }
 
 .hoverable:hover {
-  transform: translateY(-4px);
+  transform: translateY(-4px); /* Lifts the outer container element up cleanly */
   box-shadow:
-    0 10px 22px rgba(0, 0, 0, 0.12),
-    0 4px 10px rgba(0, 0, 0, 0.1);
+    0 12px 24px color-mix(in srgb, var(--global-hover-shadow-color) 15%, transparent),
+    0 4px 10px color-mix(in srgb, var(--global-hover-shadow-color) 12%, transparent) !important;
 }
 
+// zoom in 5%
+.zoomable {
+  img, 
+  picture img {
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
+    will-change: transform; /* Triggers hardware acceleration for fluid frame rates */
+  }
+}
+
+.zoomable:hover {
+  img, 
+  picture img { 
+    transform: scale(1.05) !important; /* Zooms strictly the inner graphic by 5% */
+  }
+}
+
+// Motion accessibility support rules
 @media (prefers-reduced-motion: reduce) {
-  .hoverable {
+  .hoverable, .zoomable {
     transition: none;
   }
-
   .hoverable:hover {
     transform: none;
+  }
+  .zoomable:hover img, 
+  .zoomable:hover picture img {
+    transform: none !important;
   }
 }
 
@@ -281,4 +302,13 @@ ul.task-list input[type="checkbox"] {
 
 .d2h-diff-table {
   position: relative;
+}
+
+.medium-zoom-overlay,
+.medium-zoom-image--opened {
+  z-index: 10000 !important;
+}
+
+.medium-zoom-overlay {
+  opacity: 0.85 !important; 
 }

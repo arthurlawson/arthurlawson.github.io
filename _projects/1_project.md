@@ -4,7 +4,7 @@ title: Self Balancing Robot V2
 description: A drivable self-balancing robot that screams when it falls!
 img: assets/img/projects/self-balancing-robot-v2/cover.jpg
 importance: 1
-category: fun
+category: robotics
 related_publications: false
 ---
 

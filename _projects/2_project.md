@@ -4,7 +4,7 @@ title: Self Balancing Robot V1 (Prototype)
 description: The foundational proof-of-concept for a Brushed DC self-balancing robot.
 img: assets/img/projects/self-balancing-robot-v1/cover.jpg
 importance: 2
-category: fun
+category: robotics
 related_publications: false
 
 _styles: >
@@ -30,7 +30,7 @@ _styles: >
         border: 0;
         border-top: 1px solid var(--global-divider-color);
         width: 100%;
-        margin-top: 60px;
+        margin-top: 50px;
         margin-bottom: 50px;
     }
     .subtitle-theme {
@@ -68,7 +68,6 @@ _styles: >
         font-weight: 400;
         min-width: auto;
         padding: 0;
-        display: inline;
         margin-top: 5px;
         margin-right: 6px;
         letter-spacing: 1.5px;
@@ -105,56 +104,44 @@ _styles: >
         text-align: left;
     }
 
-    /* --- Dynamic Scroll-Focus Classes --- */
+    /* --- DYNAMIC FOCUSING --- */
     .focus-group {
-        opacity: 0.4;
-        transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        will-change: opacity;
+        opacity: 0.03 !important; 
+        filter: blur(2px);
+        transition: 
+            opacity 0.5s cubic-bezier(0.215, 0.610, 0.355, 1),
+            filter 0.5s cubic-bezier(0.215, 0.610, 0.355, 1);
+        will-change: opacity, filter;
     }
     
     .focus-group.is-focused {
         opacity: 1 !important;
+        filter: blur(0px) !important;
     }
 
-    .sticky-media-column {
-        opacity: 0.4;
-        transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        will-change: opacity;
-    }
-    
-    .sticky-media-column.is-focused {
-        opacity: 1 !important;
-    }
-
-    /* --- UNIVERSAL MUTEX MULTI-LAYER PLAYBACK SWITCHES --- */
-    
-    /* When OUT of focus: Force the active animation to completely vanish and change to still photo backdrop */
-    .sticky-media-column:not(.is-focused) .live-gif-loop {
+    /* --- AUTO PLAYBACK COUPLING --- */
+    /* Controls the robot GIF loop instantly when its parent block gains focus */
+    .focus-group:not(.is-focused) .live-gif-loop {
         opacity: 0 !important;
         pointer-events: none;
     }
-    
-    /* When IN focus: Fade the active robot loop back into view over the static photo */
-    .sticky-media-column.is-focused .live-gif-loop {
+    .focus-group.is-focused .live-gif-loop {
         opacity: 1 !important;
     }
 
-    /* --- MOBILE MEDIA QUERIES --- */
+    /* --- DESKTOP AND MOBILE LAYOUT CONTROLS --- */
     @media (max-width: 767.98px) {
         .sticky-media-column {
-            position: relative !important; /* Unpins sticky layout behavior for vertical mobile stacks */
+            position: relative !important;
             top: 0 !important;
             margin-top: 30px;
         }
     }
 
     @media (prefers-reduced-motion: reduce) {
-        .focus-group, .sticky-media-column {
+        .focus-group, .live-gif-loop {
             opacity: 1 !important;
             transition: none !important;
-        }
-        .live-gif-loop { 
-            opacity: 1 !important; 
         }
     }
 ---
@@ -206,11 +193,12 @@ _styles: >
         </div>
 
         <!-- Right Side: The Media Showcase Frame (40% Width) -->
-        <div class="w-100 w-md-40 d-flex flex-column align-items-center justify-content-start sticky-media-column" 
+        <div class="w-100 w-md-40 d-flex flex-column align-items-center justify-content-start sticky-media-column focus-group" 
+            data-group="synopsis-photo"
             style="position: -webkit-sticky; position: sticky; top: 100px; z-index: 10;">
 
             <!-- Smart Media structural bounding container -->
-            <div class="smart-gif-frame hoverable" style="width: 100%; aspect-ratio: 1 / 1; border-radius: 6px; border: 2px solid var(--global-text-color); overflow: hidden; position: relative;">
+            <div class="smart-gif-frame zoomable" style="width: 100%; aspect-ratio: 1 / 1; border-radius: 6px; border: 2px solid var(--global-text-color); overflow: hidden; position: relative;">
                 
                 <!-- BASE LAYER: Static, unmoving placeholder photo handling the out-of-focus layout safely -->
                 <img class="frozen-gif-placeholder" 
@@ -332,10 +320,11 @@ _styles: >
         <!-- Left Column Frame: Physical Breadboard Prototype Showcase -->
         <div class="col-12 col-md-6 d-flex flex-column align-items-center">
             <!-- Aspect ratio set to standard 4/3 photography bounds -->
-            <div class="hoverable" style="width: 100%; aspect-ratio: 4 / 3; border-radius: 6px; border: 2px solid var(--global-text-color); overflow: hidden; background-color: var(--global-bg-overlay); position: relative; display: flex; align-items: center; justify-content: center;">
+            <div class="zoomable" style="width: 100%; aspect-ratio: 4 / 3; border-radius: 6px; border: 2px solid var(--global-text-color); overflow: hidden; background-color: var(--global-bg-overlay); position: relative; display: flex; align-items: center; justify-content: center;">
                 
                 <!-- Replace with the exact local directory path string to your physical setup photo -->
-                <img src="{{ 'assets/img/projects/self-balancing-robot-v1/breadboard.jpg' | relative_url }}" 
+                <img class="img-zoomable" data-zoomable
+                    src="{{ 'assets/img/projects/self-balancing-robot-v1/breadboard.jpg' | relative_url }}" 
                     alt="Physical Dual Half-Size Breadboard Prototyping Assembly" 
                     style="width: 100%; height: 100%; object-fit: cover; display: block;">
                     
@@ -349,10 +338,11 @@ _styles: >
         <!-- Right Column Frame: Professional Schematic CAD Blueprint Showcase -->
         <div class="col-12 col-md-6 d-flex flex-column align-items-center">
             <!-- Object fit set to contain to protect fine wire layout tracks without cropping symbols -->
-            <div class="hoverable" style="width: 100%; aspect-ratio: 4 / 3; border-radius: 6px; border: 2px solid var(--global-text-color); overflow: hidden; background-color: var(--global-bg-overlay); position: relative; display: flex; align-items: center; justify-content: center;">
+            <div class="zoomable" style="width: 100%; aspect-ratio: 4 / 3; border-radius: 6px; border: 2px solid var(--global-text-color); overflow: hidden; background-color: var(--global-bg-overlay); position: relative; display: flex; align-items: center; justify-content: center;">
                 
                 <!-- Replace with the exact local directory path string to your compiled vector drawing blueprint -->
-                <img src="{{ 'assets/img/projects/self-balancing-robot-v1/circuit-schematic.png' | relative_url }}" 
+                <img class="img-zoomable" data-zoomable
+                    src="{{ 'assets/img/projects/self-balancing-robot-v1/circuit-schematic.png' | relative_url }}" 
                     alt="Electrical Circuit Diagram Schematic" 
                     style="width: 110%; height: 110%; object-fit: fit; display: block;">
                     
@@ -397,8 +387,15 @@ _styles: >
 
 <hr class="section-divider">
 
-## Firmware Architecture & Control Algorithms
-The firmware executes on a non-blocking timing loop within the Arduino framework to ensure fixed-interval control updates.
+<div class="focus-group" data-group="firmware">
+
+    <h2 class="section-heading">Firmware Architecture</h2>
+
+    <p class="body-long" style="margin-bottom: 30px;">
+        The firmware executes on a non-blocking timing loop within the Arduino framework to ensure fixed-interval control updates.
+    </p>
+
+</div>
 
 ### 1. State Estimation via a Custom Kalman Filter
 * Raw IMU accelerometer readings are susceptible to high-frequency noise from chassis vibrations, while the gyroscope exhibits long term drift.
@@ -463,72 +460,19 @@ All production files, mechanical CAD structures, firmware deployment packages, a
     Prototype Overview: The left image shows the raw V1 hardware setup balancing autonomously. The right image shows the breadboard layout.
 </div>
 
-<!-- Production-Grade Low-Horizon Instant Focus Scroll Engine -->
+<!-- Scroll Focus Engine -->
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    const groups = document.querySelectorAll(".focus-group");
-    const mediaColumn = document.querySelector(".sticky-media-column");
-    
-    if (!groups.length) return;
+    const focusItems = document.querySelectorAll(".focus-group");
+    if (!focusItems.length) return;
 
-    const isMobile = () => window.innerWidth < 768;
-
-    function calculateActiveSpotlight() {
-      // Pushed focus horizon line down to 55% of the viewport depth so text lights up early
-      const targetFocusHorizon = window.innerHeight * 0.55;
-      
-      let closestGroup = null;
-      let minDistanceToHorizon = Infinity;
-
-      groups.forEach((group) => {
-        const ObjectRect = group.getBoundingClientRect();
-        
-        // Track the top edge of the section to catch it early as it enters from the bottom fold
-        const groupTargetY = ObjectRect.top;
-        const distanceToHorizon = Math.abs(targetFocusHorizon - groupTargetY);
-
-        // FIXED: Stripped out the undefined variable to fix the javascript crash
-        if (distanceToHorizon < minDistanceToHorizon) {
-          minDistanceToHorizon = distanceToHorizon;
-          closestGroup = group;
-        }
+    // Sets focal target arcs (Wakes up sections gracefully when crossing center view limits)
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        entry.target.classList.toggle("is-focused", entry.isIntersecting);
       });
+    }, { rootMargin: "-25% 0px -15% 0px", threshold: [0, 0.15] }); // dont show for top 27% and bottom 17% of screen
 
-      // Expanded overlap window ensures rows are bright way before your eyes land on them
-      groups.forEach((group) => {
-        const ObjectRect = group.getBoundingClientRect();
-        
-        // Generous 120px peripheral buffer completely removes text pre-flickering or lag
-        if (group === closestGroup || (ObjectRect.top < targetFocusHorizon + 120 && ObjectRect.bottom > targetFocusHorizon - 120)) {
-          group.classList.add("is-focused");
-        } else {
-          group.classList.remove("is-focused");
-        }
-      });
-
-      // Synchronize media block visibility triggers cleanly
-      if (mediaColumn) {
-        const synopsisFocused = document.querySelector('[data-group="synopsis"]').classList.contains("is-focused");
-        const metadataFocused = document.querySelector('[data-group="metadata"]').classList.contains("is-focused");
-
-        let shouldFocusAndPlay = false;
-        if (!isMobile() && synopsisFocused) {
-          shouldFocusAndPlay = true; 
-        } else if (isMobile() && (synopsisFocused || metadataFocused)) {
-          shouldFocusAndPlay = true; 
-        }
-
-        if (shouldFocusAndPlay) {
-          mediaColumn.classList.add("is-focused");
-        } else {
-          mediaColumn.classList.remove("is-focused");
-        }
-      }
-    }
-
-    window.addEventListener("scroll", calculateActiveSpotlight, { passive: true });
-    window.addEventListener("resize", calculateActiveSpotlight, { passive: true });
-    
-    calculateActiveSpotlight();
+    focusItems.forEach(item => observer.observe(item));
   });
 </script>

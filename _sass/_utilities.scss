@@ -67,8 +67,8 @@ progress {
   /* Positioning */
   position: fixed;
   left: 0;
-  top: 56px;
-  z-index: 10;
+  top: 65px;
+  z-index: 9999;
 
   /* Dimensions */
   width: 100%;
@@ -105,7 +105,7 @@ progress::-moz-progress-bar {
   width: 100%;
   background-color: transparent;
   position: fixed;
-  top: 56px;
+  top: 65px;
   left: 0;
   height: 5px;
   display: block;
