@@ -6,144 +6,6 @@ img: assets/img/projects/self-balancing-robot-v1/cover.jpg
 importance: 2
 category: robotics
 related_publications: false
-
-_styles: >
-    .section-heading {
-        font-family: 'Playfair Display', Georgia, serif;
-        font-size: 2.6rem;
-        font-weight: normal;
-        margin-top: 0px;
-        margin-bottom: 24px;
-        color: var(--global-text-color);
-        letter-spacing: -0.5px;
-    }
-    .section-subheading {
-        font-family: 'Playfair Display', Georgia, serif;
-        font-size: 1.9rem;
-        font-weight: normal;
-        margin-top: 40px;
-        margin-bottom: 30px;
-        color: var(--global-text-color);
-        letter-spacing: -0.5px;
-    }
-    .section-divider {
-        border: 0;
-        border-top: 1px solid var(--global-divider-color);
-        width: 100%;
-        margin-top: 50px;
-        margin-bottom: 50px;
-    }
-    .subtitle-theme {
-        line-height: 1.6;
-        font-size: 1rem;
-        font-weight: 400;
-        letter-spacing: 1.5px;
-        color: var(--global-theme-color);
-        min-width: 140px;
-        display: inline-block;
-        padding-top: 3px;
-        text-transform: uppercase;
-    }
-    .body-long {
-        line-height: 1.65;
-        font-size: 1.1rem;
-        font-weight: 350;
-        text-align: justify;
-        color: var(--global-text-color);
-    }
-    .body-normal {
-        line-height: 1.6;
-        font-size: 1rem;
-        font-weight: 300;
-        text-align: left;
-        color: var(--global-text-color);
-    }
-    .highlight {
-        color: var(--global-theme-color) !important;
-        font-weight: inherit !important;
-    }
-    .image-fig-text {
-        line-height: 1.6;
-        font-size: 0.85rem;
-        font-weight: 400;
-        min-width: auto;
-        padding: 0;
-        margin-top: 5px;
-        margin-right: 6px;
-        letter-spacing: 1.5px;
-        color: var(--global-theme-color);
-        display: inline-block;
-        text-transform: uppercase;
-    }
-    .image-caption {
-        font-size: 0.85rem !important;
-        font-weight: 300 !important;
-        letter-spacing: 0.3px !important;
-        margin-top: 5px;
-        text-align: center;
-        color: var(--global-text-color);
-        opacity: 0.8;
-    }
-    .card-container {
-        border-left: 4px solid var(--global-theme-color);
-        padding-left: 15px;
-        height: 100%;
-    }
-    .card-title {
-        font-size: 1rem;
-        font-weight: bold;
-        color: var(--global-text-color);
-        margin-bottom: 5px !important;
-    }
-    .card-body {
-        line-height: 1.6 !important;
-        font-size: 1rem;
-        margin: 0px !important;
-        padding: 0px !important;
-        color: var(--global-text-color);
-        text-align: left;
-    }
-
-    /* --- DYNAMIC FOCUSING --- */
-    .focus-group {
-        opacity: 0.03 !important; 
-        filter: blur(2px);
-        transition: 
-            opacity 0.5s cubic-bezier(0.215, 0.610, 0.355, 1),
-            filter 0.5s cubic-bezier(0.215, 0.610, 0.355, 1);
-        will-change: opacity, filter;
-    }
-    
-    .focus-group.is-focused {
-        opacity: 1 !important;
-        filter: blur(0px) !important;
-    }
-
-    /* --- AUTO PLAYBACK COUPLING --- */
-    /* Controls the robot GIF loop instantly when its parent block gains focus */
-    .focus-group:not(.is-focused) .live-gif-loop {
-        opacity: 0 !important;
-        pointer-events: none;
-    }
-    .focus-group.is-focused .live-gif-loop {
-        opacity: 1 !important;
-    }
-
-    /* --- DESKTOP AND MOBILE LAYOUT CONTROLS --- */
-    @media (max-width: 767.98px) {
-        .sticky-media-column {
-            position: relative !important;
-            top: 0 !important;
-            margin-top: 30px;
-        }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-        .focus-group, .live-gif-loop {
-            opacity: 1 !important;
-            transition: none !important;
-        }
-    }
 ---
 
 <div class="synopsis-block">
@@ -193,25 +55,15 @@ _styles: >
         </div>
 
         <!-- Right Side: The Media Showcase Frame (40% Width) -->
-        <div class="w-100 w-md-40 d-flex flex-column align-items-center justify-content-start sticky-media-column focus-group" 
+        <div class="w-100 w-md-40 d-flex flex-column align-items-center justify-content-start focus-group" 
             data-group="synopsis-photo"
-            style="position: -webkit-sticky; position: sticky; top: 100px; z-index: 10;">
+            style="z-index: 10;">
 
             <!-- Smart Media structural bounding container -->
-            <div class="smart-gif-frame zoomable" style="width: 100%; aspect-ratio: 1 / 1; border-radius: 6px; border: 2px solid var(--global-text-color); overflow: hidden; position: relative;">
-                
-                <!-- BASE LAYER: Static, unmoving placeholder photo handling the out-of-focus layout safely -->
-                <img class="frozen-gif-placeholder" 
-                    src="{{ 'assets/img/projects/self-balancing-robot-v1/cover.jpg' | relative_url }}" 
-                    alt="V1 Prototype Frozen Baseline Pose" 
-                    style="width: 100%; height: 100%; object-fit: cover; display: block; position: absolute; top: 0; left: 0; z-index: 1;">
-                
-                <!-- SURFACE LAYER: Live looping animation transitioning smoothly based on viewport focus -->
-                <img class="live-gif-loop" 
-                    src="{{ 'assets/img/projects/self-balancing-robot-v1/demo_balancing.gif' | relative_url }}" 
-                    alt="V1 Prototype Active Balancing Loop" 
-                    style="width: 100%; height: 100%; object-fit: cover; display: block; position: absolute; top: 0; left: 0; z-index: 2; transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1); will-change: opacity;">
-                    
+            <div class="shadowy zoomy8" style="width: 100%; aspect-ratio: 1 / 1;">
+                <img src="{{ 'assets/img/projects/self-balancing-robot-v1/demo_balancing.gif' | relative_url }}" 
+                     alt="V1 Prototype Active Balancing Loop" 
+                     style="width: 100%; height: 100%; object-fit: contain;"> 
             </div>
             
             <!-- Minimalist Caption Centered Directly Below Frame -->
@@ -319,15 +171,11 @@ _styles: >
     
         <!-- Left Column Frame: Physical Breadboard Prototype Showcase -->
         <div class="col-12 col-md-6 d-flex flex-column align-items-center">
-            <!-- Aspect ratio set to standard 4/3 photography bounds -->
-            <div class="zoomable" style="width: 100%; aspect-ratio: 4 / 3; border-radius: 6px; border: 2px solid var(--global-text-color); overflow: hidden; background-color: var(--global-bg-overlay); position: relative; display: flex; align-items: center; justify-content: center;">
-                
-                <!-- Replace with the exact local directory path string to your physical setup photo -->
+            <div class="shadowy clicky zoomy7" style="width: 100%; aspect-ratio: 4 / 3;">
                 <img class="img-zoomable" data-zoomable
                     src="{{ 'assets/img/projects/self-balancing-robot-v1/breadboard.jpg' | relative_url }}" 
                     alt="Physical Dual Half-Size Breadboard Prototyping Assembly" 
-                    style="width: 100%; height: 100%; object-fit: cover; display: block;">
-                    
+                    style="width: 100%; height: 100%; object-fit: cover;">   
             </div>
             <div class="image-caption">
                 <span class="image-fig-text">Fig 1.2</span> 
@@ -337,15 +185,11 @@ _styles: >
 
         <!-- Right Column Frame: Professional Schematic CAD Blueprint Showcase -->
         <div class="col-12 col-md-6 d-flex flex-column align-items-center">
-            <!-- Object fit set to contain to protect fine wire layout tracks without cropping symbols -->
-            <div class="zoomable" style="width: 100%; aspect-ratio: 4 / 3; border-radius: 6px; border: 2px solid var(--global-text-color); overflow: hidden; background-color: var(--global-bg-overlay); position: relative; display: flex; align-items: center; justify-content: center;">
-                
-                <!-- Replace with the exact local directory path string to your compiled vector drawing blueprint -->
+            <div class="shadowy clicky zoomy8" style="width: 100%; aspect-ratio: 4 / 3;">
                 <img class="img-zoomable" data-zoomable
                     src="{{ 'assets/img/projects/self-balancing-robot-v1/circuit-schematic.png' | relative_url }}" 
                     alt="Electrical Circuit Diagram Schematic" 
-                    style="width: 110%; height: 110%; object-fit: fit; display: block;">
-                    
+                    style="width: 110%; height: 110%; object-fit: fit;">
             </div>
             <div class="image-caption">
                 <span class="image-fig-text">Fig 1.3</span> 
@@ -387,28 +231,161 @@ _styles: >
 
 <hr class="section-divider">
 
-<div class="focus-group" data-group="firmware">
-
+<div class="focus-group" data-group="firmware-heading">
     <h2 class="section-heading">Firmware Architecture</h2>
 
-    <p class="body-long" style="margin-bottom: 30px;">
-        The firmware executes on a non-blocking timing loop within the Arduino framework to ensure fixed-interval control updates.
+    <p class="body-long">
+    The firmware executes on a non-blocking timing loop within the Arduino framework to ensure fixed-interval control updates.
     </p>
-
 </div>
 
-### 1. State Estimation via a Custom Kalman Filter
-* Raw IMU accelerometer readings are susceptible to high-frequency noise from chassis vibrations, while the gyroscope exhibits long term drift.
-* To isolate the true tilt angle, a custom two-state Kalman Filter calculates the error covariance matrices in real time, yielding clean and drift free orientation data.
+<!-- Sub-Section 1: State Estimation -->
+<div class="focus-group" data-group="state-estimation" style="margin-top: 40px; margin-bottom: 30px;">
+    <h3 class="section-subheading" style="margin-bottom: 15px;">State Estimation via a Custom Kalman Filter</h3>
 
-### 2. PID Control loop Implementation
-* The filtered tilt angle estimate is compared against the vertical setpoint. 
-* A discrete Proportional-Integral-Derivative (PID) loop continuously recalculates this tilt error to output updated motor speeds.
+    <p class="body-normal" style="margin-bottom: 10px;">
+    Raw IMU accelerometer readings are highly susceptible to high-frequency noise from chassis vibrations, while the gyroscope 
+    exhibits long term drift.
+    </p>
+    <p class="body-normal" style="margin-bottom: 20px;">
+    To isolate the true tilt angle, a custom two-state Kalman Filter calculates the error covariance matrices in real time, yielding 
+    clean and drift free orientation data.
+    </p>
 
-### 3. Gain Scaling
-* Exponential curves were used to scale controller outputs dynamically if the robot suffers from sudden deep tilt variations, maximizing recovery torque.
+    <!-- Code Accordion -->
+    <input type="checkbox" id="kalman-code-toggle" class="accordion-toggle-input">
+    
+    <div class="portfolio-accordion shadowy">
+        <!-- The header row click target -->
+        <label for="kalman-code-toggle" class="accordion-header hovery1">
+            <span>View C++ Kalman Filter Implementation</span>
+            <span class="accordion-icon"></span>
+        </label>
 
-<hr class="my-5">
+        <!-- The content tray -->
+        <div class="accordion-content">
+            {% highlight cpp %}
+void KalmanFilter::predict(float *gyro) { 
+    // A Priori State Estimate with Gyroscope Readings ( New_Angle = Old_Angle + (Angular_Velocity * dt_sec) )
+    roll  += gyro[0] * RAD_TO_DEG * dt_sec;
+    pitch += gyro[1] * RAD_TO_DEG * dt_sec;
+
+    // Uncertainty Grows (To account for gyroscopic drift, inject Process Noise Q into the Covariance matrix)
+    Sigma[0] += Q[0] * dt_sec;
+    Sigma[3] += Q[1] * dt_sec;
+}
+            {% endhighlight %}
+
+            {% highlight cpp %}
+void KalmanFilter::measurement_task(float *accel) {
+    // Calculate True Measured Tilt with Accelerometer Readings
+    m_roll  = atan2(accel[1],  sqrt(sqr(accel[0]) + sqr(accel[2]))) * RAD_TO_DEG;
+    m_pitch = atan2(-accel[0], sqrt(sqr(accel[1]) + sqr(accel[2]))) * RAD_TO_DEG;
+    
+    // Compute Innovation Covariance S (Fuse initial uncertainty with Accelerometer measurement Noise R)
+    float S0 = Sigma[0] + R[0];
+    float S1 = Sigma[1];
+    float S2 = Sigma[2];
+    float S3 = Sigma[3] + R[1];
+
+    // Compute Kalman Gains (($K = \Sigma * S^(-1)$))
+    k_det = 1.0f / (S0 * S3 - S1 * S2);
+
+    k_gain[0] = (Sigma[0] * S3 - Sigma[1] * S2) * k_det;
+    k_gain[1] = (Sigma[1] * S0 - Sigma[0] * S1) * k_det;
+    k_gain[2] = (Sigma[2] * S3 - Sigma[3] * S2) * k_det;
+    k_gain[3] = (Sigma[3] * S0 - Sigma[2] * S1) * k_det;
+
+    // Calculate the Error Between the Accelerometer Reading and the A Priori Estimate
+    float r_error = m_roll - roll;
+    float p_error = m_pitch - pitch;
+
+    // Update the Roll and Pitch with Kalman Gains
+    roll  += (k_gain[0] * r_error) + (k_gain[1] * p_error);
+    pitch += (k_gain[2] * r_error) + (k_gain[3] * p_error);
+
+    // Update Error Covariance Matrix (A Posteriori Estimation)
+    float s0 = Sigma[0], s1 = Sigma[1], s2 = Sigma[2], s3 = Sigma[3];
+    Sigma[0] = (1.0f - k_gain[0]) * s0 - k_gain[1] * s2;
+    Sigma[1] = (1.0f - k_gain[0]) * s1 - k_gain[1] * s3;
+    Sigma[2] = -k_gain[2] * s0 + (1.0f - k_gain[3]) * s2;
+    Sigma[3] = -k_gain[2] * s1 + (1.0f - k_gain[3]) * s3;
+
+    // Enforce Matrix Symmetry (If any rounding errors accumulate)
+    float relationship_avg = (Sigma[1] + Sigma[2]) * 0.5f;
+    Sigma[1] = Sigma[2] = relationship_avg;
+}
+            {% endhighlight %}
+        </div>
+    </div>
+</div>
+
+<!-- Sub-Section 2: PID Control Loop -->
+<div class="focus-group" data-group="pid-implementation" style="margin-top: 40px; margin-bottom: 30px;">
+<h3 class="section-subheading" style="margin-bottom: 15px;">PID Control Loop Implementation</h3>
+<p class="body-normal" style="margin-bottom: 10px;">
+    The filtered tilt angle estimate ($\theta$) is continuously compared against the vertical equilibrium setpoint to solve for the 
+    system error. 
+</p>
+<p class="body-normal" style="margin-bottom: 20px;">
+    A discrete Proportional-Integral-Derivative (PID) loop continuously recalculates this tilt error and outputs updated motor speeds.
+</p>
+<div class="focus-group" data-group="pid-implementation-code" markdown="1" style="margin-bottom: 30px;">
+```cpp
+float PID::control(float pv, float max)
+{
+    error = setpoint - pv;
+
+    // Update Derivative with Low Pass Filter
+    float raw_derivative = (error - previous_error) / dt;
+    derivative = (0.80f * previous_derivative) + (0.2f * raw_derivative); // low pass filter
+    
+    previous_error = error;
+    previous_derivative = derivative;
+
+    // Update Integral
+    integral = constrain((integral + (error * dt)), -1.20f, 1.20f);
+
+    // Output
+    out = (kp * error) + (ki * integral) + (kd * derivative);
+    return constrain(out, -max, max); 
+}
+```
+</div>
+</div>
+
+<!-- Sub-Section 3: Gain Scaling -->
+<div class="focus-group" data-group="gain-scaling" style="margin-top: 40px; margin-bottom: 30px;">
+<h3 class="section-subheading" style="margin-bottom: 15px;">Exponential Gain Scaling</h3>
+<p class="body-normal" style="margin-bottom: 10px;">
+    Standard linear PID equations fail when a self-balancing robot suffers from sudden deep tilt disturbances, often leading to 
+    unrecoverable falls (This is a problem specific to Brushed DC TT Motors and their lack of power). 
+</p>
+<p class="body-normal" style="margin-bottom: 20px;">
+    Therefore, exponential curves were used to quickly scale controller outputs dynamically if the robot suffers from sudden deep 
+    tilt variations, maximizing recovery torque.
+</p>
+<div class="focus-group" data-group="gain-scaling-code" markdown="1" style="margin-bottom: 30px;">
+```cpp
+if (angle_error > START_EXPONENTIAL) {
+    float overshoot = angle_error - START_EXPONENTIAL;
+    kp_exp_scaler = 1.0f + pow(overshoot, 4.5f);
+    kd_exp_scaler = 1.0f + pow(overshoot, 4.0f);
+    
+    dynamic_kp = KP * kp_exp_scaler;
+    dynamic_kp = constrain(dynamic_kp, KP, 700.0f);
+
+    dynamic_kd = KD * kd_exp_scaler;
+    dynamic_kd = constrain(dynamic_kd, KD, 50.0f);
+
+    dynamic_min_pwm = MIN_PWM + (pow(overshoot, 3.0f) * 3.0f); 
+    dynamic_min_pwm = constrain(dynamic_min_pwm, MIN_PWM, 200.0f);
+  }
+```
+</div>
+</div>
+
+<hr class="section-divider">
 
 ## Mechanical Chassis
 

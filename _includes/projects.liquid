@@ -1,40 +1,23 @@
-<style>
-  .custom-card-title {
-    font-family: 'Playfair Display', Georgia, serif !important;
-    font-size: 2.0rem !important;
-    font-weight: normal !important;
-    margin-top: 0px !important;
-    margin-bottom: 12px !important;
-    color: var(--global-text-color) !important;
-    letter-spacing: -0.5px !important;
-  }
-  
-  .custom-card-text {
-    line-height: 1.3 !important;
-    font-size: 1rem !important;
-    font-weight: 350 !important;
-    text-align: left !important;
-    color: var(--global-text-color) !important;
-    margin-bottom: 20px !important;
-  }
-</style>
-
 <div class="col">
   <a href="{% if project.redirect %}{{ project.redirect }}{% else %}{{ project.url | relative_url }}{% endif %}">
-    <div class="card h-100 hoverable zoomable" style="overflow: hidden !important; border-radius: 6px !important;">
+    <div class="card h-100 shadowy hovery5 clicky zoomy10" style="overflow: hidden !important;">
+
       {% if project.img %}
-        {%
-          include figure.liquid
-          loading="eager"
-          path=project.img
-          sizes = "250px"
-          alt="project thumbnail"
-          class="card-img-top"
-        %}
+        <div style="aspect-ratio: 16 / 9 !important; width: 100% !important; overflow: hidden !important; position: relative !important;">
+          {%
+            include figure.liquid
+            loading="eager"
+            path=project.img
+            sizes = "250px"
+            alt="project thumbnail"
+            class="card-img-top"
+          %}
+        </div>
       {% endif %}
+
       <div class="card-body">
-        <h2 class="card-title custom-card-title">{{ project.title }}</h2>
-        <p class="card-text custom-card-text">{{ project.description }}</p>
+        <h2 class="card-title">{{ project.title }}</h2>
+        <p class="card-text">{{ project.description }}</p>
         <div class="row ml-1 mr-1 p-0">
           {% if project.github %}
             <div class="github-icon">

@@ -1,13 +1,6 @@
 <!doctype html>
 {%- comment -%}
-  al_rtl owns the language and direction attributes when it is installed, because
-  `dir` has to sit on <html> for the browser's bidi handling, CSS logical
-  properties and Tailwind's rtl: variant to apply to the whole document.
-
-  Captured into a variable rather than wrapping the <html> tag in a conditional:
-  a conditional there stops the tag being a single static element, and Prettier
-  then re-indents the entire document body. The guard keeps this parse-safe —
-  without the plugin the tag does not exist and Liquid fails on every page.
+  al_rtl owns the language and direction attributes when it is installed...
 {%- endcomment -%}
 {%- capture html_attributes -%}
   {%- if site.plugins contains 'al_rtl' -%}
@@ -34,48 +27,42 @@
 
   <!-- Body -->
   <body class="{% if site.navbar_fixed %}fixed-top-nav{% endif %} {% unless site.footer_fixed %}sticky-bottom-footer{% endunless %}">
+    
+    <!-- Remove the legacy page-wipe-curtain div entirely -->
+
     <!-- Header -->
     {% include header.liquid %}
 
     <!-- Content -->
     <div class="container mt-5" role="main">
-      {% if page.toc and page.toc.sidebar %}
-        {% assign toc_collapse = page.toc.collapse | default: 'expanded' %}
-        {% assign toc_collapse_depth = page.toc.collapse_depth | default: '' %}
-        {% if page.toc.sidebar == 'right' %}
-          <div class="row">
-            <!-- main content area -->
-            <div class="col-sm-9">{{ content }}</div>
-            <!-- sidebar, which will move to the top on a small screen -->
-            <div class="col-sm-3">
-              <nav
-                id="toc-sidebar"
-                class="sticky-top toc toc-sidebar"
-                aria-label="Table of contents"
-                data-toc-collapse="{{ toc_collapse }}"
-                data-toc-collapse-depth="{{ toc_collapse_depth }}"
-              ></nav>
+      
+      <!-- CORE CONSOLE WRROLLER WRAPPER: Animates only the core content workspace dynamically -->
+      <div id="console-component-wrapper" class="console-entry-spring">
+        
+        {% if page.toc and page.toc.sidebar %}
+          {% assign toc_collapse = page.toc.collapse | default: 'expanded' %}
+          {% assign toc_collapse_depth = page.toc.collapse_depth | default: '' %}
+          {% if page.toc.sidebar == 'right' %}
+            <div class="row">
+              <div class="col-sm-9">{{ content }}</div>
+              <div class="col-sm-3">
+                <nav id="toc-sidebar" class="sticky-top toc toc-sidebar" aria-label="Table of contents" data-toc-collapse="{{ toc_collapse }}" data-toc-collapse-depth="{{ toc_collapse_depth }}"></nav>
+              </div>
             </div>
-          </div>
+          {% else %}
+            <div class="row">
+              <div class="col-sm-3">
+                <nav id="toc-sidebar" class="sticky-top toc toc-sidebar" aria-label="Table of contents" data-toc-collapse="{{ toc_collapse }}" data-toc-collapse-depth="{{ toc_collapse_depth }}"></nav>
+              </div>
+              <div class="col-sm-9">{{ content }}</div>
+            </div>
+          {% endif %}
         {% else %}
-          <div class="row">
-            <!-- sidebar, which will move to the top on a small screen -->
-            <div class="col-sm-3">
-              <nav
-                id="toc-sidebar"
-                class="sticky-top toc toc-sidebar"
-                aria-label="Table of contents"
-                data-toc-collapse="{{ toc_collapse }}"
-                data-toc-collapse-depth="{{ toc_collapse_depth }}"
-              ></nav>
-            </div>
-            <!-- main content area -->
-            <div class="col-sm-9">{{ content }}</div>
-          </div>
+          {{ content }}
         {% endif %}
-      {% else %}
-        {{ content }}
-      {% endif %}
+        
+      </div> <!-- End console-component-wrapper -->
+
     </div>
 
     <!-- Footer -->
@@ -83,5 +70,69 @@
 
     <!-- JavaScripts -->
     {% include scripts.liquid %}
+
+    <!-- ==========================================================================
+         Arthur's Console Application Transition Engine
+         ========================================================================== -->
+    <script>
+      (function() {
+          function initConsoleTransitions() {
+              const workspace = document.getElementById("console-component-wrapper");
+              if (!workspace) return;
+
+              // GLOBAL NAVIGATION CLICK INTERCEPTOR
+              document.body.addEventListener("click", (e) => {
+                  const link = e.target.closest('a');
+                  if (!link) return;
+
+                  const href = link.getAttribute('href');
+                  if (!href) return;
+
+                  // Guard exclusions for anchors, file downloads, external assets, or mail vectors
+                  if (
+                      link.target === "_blank" || 
+                      href.startsWith('#') || 
+                      link.hasAttribute("download") || 
+                      href.startsWith("mailto:") ||
+                      href.startsWith("tel:")
+                  ) return;
+
+                  // Protects mechatronic code accordions and dark mode selectors completely unhindered
+                  if (link.id.includes("toggle") || link.classList.contains("theme-toggle") || link.closest('#light-toggle') || link.classList.contains("navbar-toggler")) return;
+
+                  const isInternal = href.startsWith('/') || href.startsWith(window.location.origin);
+                  if (!isInternal) return;
+
+                  e.preventDefault();
+                  const destinationUrl = link.href;
+                  
+                  // EXIT TRANSITION: Snaps the workspace wrapper back into its 3D depth track
+                  workspace.classList.remove("console-entry-spring");
+                  workspace.classList.add("console-exit-glide");
+                  
+                  // Instantly shifts site routes the precise millisecond the slide concludes
+                  setTimeout(() => {
+                      window.location.href = destinationUrl;
+                  }, 240);
+              }, { capture: true });
+          }
+
+          // Initialize the main engine track
+          initConsoleTransitions();
+
+          // ==========================================================================
+          // CORE BACK-BUTTON FIX (BFCache Watcher)
+          // ==========================================================================
+          // If the browser restores the page out of historical cache memory,
+          // instantly force the content container back to its perfect, visible entry state!
+          window.addEventListener("pageshow", (event) => {
+              const workspace = document.getElementById("console-component-wrapper");
+              if (workspace && event.persisted) {
+                  workspace.classList.remove("console-exit-glide");
+                  workspace.classList.add("console-entry-spring");
+              }
+          });
+      })();
+    </script>
   </body>
 </html>

@@ -46,59 +46,33 @@ ul.task-list input[type="checkbox"] {
 
   .card-title {
     color: var(--global-text-color);
+    font-family: 'Playfair Display', Georgia, serif !important;
+    font-size: 2.0rem !important;
+    font-weight: normal !important;
+    margin-top: 0px !important;
+    margin-bottom: 12px !important;
+    color: var(--global-text-color) !important;
+    letter-spacing: -0.5px !important;
+  }
+
+  .card-text {
+    line-height: 1.3 !important;
+    font-size: 1rem !important;
+    font-weight: 350 !important;
+    text-align: left !important;
+    color: var(--global-text-color) !important;
+    margin-bottom: 20px !important;
   }
 
   .card-body {
-    padding: 1.25rem 1.25rem 1.25rem 1.25rem;
-  }
-}
-
-// Lift and shadow
-.hoverable {
-  transition:
-    transform 0.22s ease,
-    box-shadow 0.22s ease;
-}
-
-.hoverable:hover {
-  transform: translateY(-4px); /* Lifts the outer container element up cleanly */
-  box-shadow:
-    0 12px 24px color-mix(in srgb, var(--global-hover-shadow-color) 15%, transparent),
-    0 4px 10px color-mix(in srgb, var(--global-hover-shadow-color) 12%, transparent) !important;
-}
-
-// zoom in 5%
-.zoomable {
-  img, 
-  picture img {
-    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
-    will-change: transform; /* Triggers hardware acceleration for fluid frame rates */
-  }
-}
-
-.zoomable:hover {
-  img, 
-  picture img { 
-    transform: scale(1.05) !important; /* Zooms strictly the inner graphic by 5% */
-  }
-}
-
-// Motion accessibility support rules
-@media (prefers-reduced-motion: reduce) {
-  .hoverable, .zoomable {
-    transition: none;
-  }
-  .hoverable:hover {
-    transform: none;
-  }
-  .zoomable:hover img, 
-  .zoomable:hover picture img {
-    transform: none !important;
+    padding-top: 1.25rem !important;
+    padding-bottom: 2.25rem !important;
+    padding-left: 1.25rem !important;
+    padding-right: 1.25rem !important;
   }
 }
 
 // Profile
-
 .profile {
   width: 100%;
 
@@ -176,12 +150,6 @@ ul.task-list input[type="checkbox"] {
       .card-title {
         color: var(--global-theme-color);
       }
-    }
-  }
-
-  .card {
-    img {
-      width: 100%;
     }
   }
 
@@ -304,6 +272,160 @@ ul.task-list input[type="checkbox"] {
   position: relative;
 }
 
+/* ==========================================================================
+   Arthur's Custom Core Layout Utilities
+   ========================================================================== */
+
+// Initialize the transition variables globally on elements so they don't break if used alone
+[class*="hovery"], .clicky, .outliny {
+    --hover-trans: transform 0s, box-shadow 0s;
+    --click-trans: border-color 0s, box-shadow 0s;
+    
+    // If only one class is present, the other stays at 0s
+    transition: var(--hover-trans), var(--click-trans) !important;
+}
+
+// Shadow base below photos and stuff
+.shadowy {
+  border: none !important;
+  border-radius: 6px;
+  
+  box-shadow: 
+    0 4px 6px -1px color-mix(in srgb, #000000 8%, transparent),
+    0 2px 4px -2px color-mix(in srgb, #000000 6%, transparent) !important;
+}
+
+// Outline Quick
+.clicky {
+  --click-trans: 
+    border-color 0.3s cubic-bezier(0.215, 0.61, 0.355, 1),
+    box-shadow 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.clicky:hover {
+  border-color: var(--global-theme-color) !important;
+  
+  --solid-border-expand: 0 0 0 2px var(--global-theme-color);
+  
+  box-shadow: 
+    var(--solid-border-expand),
+    0 4px 6px -1px color-mix(in srgb, #000000 8%, transparent),
+    0 2px 4px -2px color-mix(in srgb, #000000 6%, transparent) !important;
+}
+
+// Corner Outline Draw
+.outliny {
+  position: relative;
+  cursor: pointer;
+  border-radius: 6px;
+  box-sizing: border-box !important;
+  transition: color 0.3s ease, border-color 0.3s ease !important;
+  
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 0 solid var(--global-theme-color);
+    transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1), 
+                height 0.3s cubic-bezier(0.25, 1, 0.5, 1), 
+                opacity 0.2s ease;
+    opacity: 0;
+    z-index: 10 !important;
+    pointer-events: none;
+    box-sizing: border-box !important;
+  }
+
+  &::before { 
+    top: -1px; 
+    left: -1px; 
+    border-top-width: 2px; 
+    border-left-width: 2px; 
+    border-top-left-radius: 6px;
+  }
+  
+  &::after { 
+    bottom: -1px; 
+    right: -1px; 
+    border-bottom-width: 2px; 
+    border-right-width: 2px; 
+    border-bottom-right-radius: 6px; 
+  }
+
+  &:hover {
+    color: var(--global-theme-color) !important;
+    border-color: transparent !important; 
+  }
+
+  &:hover::before,
+  &:hover::after {
+    opacity: 1;
+    width: 16px;   
+    height: 16px;  
+  }
+}
+
+// HOVER Lifts an element up elastically and drops a clean shadow
+@each $pixels in 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 {
+  
+  .hovery#{$pixels} {
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    will-change: transform, box-shadow;
+
+    --hover-trans: 
+      transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), 
+      box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        
+    &:hover {
+        transform: translate3d(0, -#{$pixels}px, 0) !important;
+        
+        // Shadows get softer and larger as height increases
+        --drop-shadow: 
+            0 #{calc($pixels * 3.2)}px #{calc($pixels * 6.4)}px color-mix(in srgb, #000000 12%, transparent),
+            0 #{calc($pixels * 1.2)}px #{calc($pixels * 2.8)}px color-mix(in srgb, #000000 10%, transparent);
+            
+        box-shadow: var(--drop-shadow), var(--solid-border-expand, 0 0 0 0 transparent) !important;
+    }
+  }
+}
+
+// ZOOM zooms the image inside by desired amount
+@each $percent in 3, 4, 5, 6, 7, 8, 9, 10, 20, 30, 40 {
+  
+  .zoomy#{$percent} {
+    isolation: isolate;
+    perspective: 1000px; 
+    
+    overflow: hidden !important; 
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    img, 
+    picture img,
+    figure img {
+        width: 100% !important;
+        transform: scale(1.01); 
+        transition: transform 0.7s cubic-bezier(0.35, 0, 0.2, 1) !important;
+        will-change: transform;
+    }
+
+    &:hover {
+        img, 
+        picture img,
+        figure img { 
+            transform: scale(1.01 + calc($percent / 100)) !important; 
+        }
+    }
+  }
+}
+
+// ZOOM ADJUSTMENTS FOR MEDIUM ZOOM PLUGIN
 .medium-zoom-overlay,
 .medium-zoom-image--opened {
   z-index: 10000 !important;
@@ -311,4 +433,613 @@ ul.task-list input[type="checkbox"] {
 
 .medium-zoom-overlay {
   opacity: 0.85 !important; 
+}
+
+// ==========================================================================
+// Arthur's Code Accordion
+// ==========================================================================
+.portfolio-accordion {
+    position: relative;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    border-radius: 6px;
+    background-color: var(--global-card-bg-color) !important;
+    box-sizing: border-box !important;
+    overflow: hidden;
+    
+    border: 1px solid var(--global-text-color) !important;
+}
+
+.accordion-toggle-input {
+    display: none !important;
+}
+
+.accordion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 24px; 
+    font-weight: 600;
+    font-size: 0.8rem; 
+    letter-spacing: 1.2px;
+    text-transform: uppercase !important; 
+    cursor: pointer;
+    user-select: none;
+    margin: 0 !important;
+    
+    color: var(--global-text-color) !important; 
+    background-color: transparent !important; 
+    transition: color 0.25s ease;
+
+    &:hover,
+    &:hover span {
+        color: var(--global-theme-color) !important;
+    }
+}
+
+// Plus Icon
+.accordion-icon {
+    position: relative;
+    width: 14px;
+    height: 14px;
+    transform: rotate(0deg);
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important; 
+    will-change: transform;
+    flex-shrink: 0;
+    pointer-events: none;
+    
+    &::before {
+        content: '';
+        position: absolute;
+        top: 6px;
+        left: 0;
+        width: 14px;
+        height: 2px;
+        background-color: var(--global-text-color);
+        transition: background-color 0.25s ease !important;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 6px;
+        width: 2px;
+        height: 14px;
+        background-color: var(--global-text-color);
+        transition: background-color 0.25s ease !important;
+    }
+
+    .accordion-header:hover &::before, .accordion-header:hover &::after { background-color: var(--global-theme-color) !important; }
+}
+
+.accordion-toggle-input:checked ~ .portfolio-accordion {
+    
+    // Locks text and icon to them colour permanently when open at rest
+    .accordion-header,
+    .accordion-header span {
+        color: var(--global-theme-color) !important;
+    }
+    
+    .accordion-icon {
+        transform: rotate(135deg) !important; // Flips '+' to a '×' smoothly
+        
+        &::before, &::after {
+            background-color: var(--global-theme-color) !important;
+        }
+    }
+
+    // Hovering over the open button header forces it back to white text
+    .accordion-header:hover,
+    .accordion-header:hover span {
+        color: var(--global-text-color) !important;
+        
+        .accordion-icon::before,
+        .accordion-icon::after {
+            background-color: var(--global-text-color) !important;
+        }
+    }
+
+    // Rolls the content box down over exactly 2 seconds
+    .accordion-content {
+        max-height: 1500px;
+        opacity: 1;
+        padding: 24px;
+    }
+}
+
+.accordion-content {
+    max-height: 0;
+    opacity: 0;
+    padding: 0 24px;
+    overflow: hidden;
+    
+    border-top: 1px solid color-mix(in srgb, var(--global-text-color) 15%, transparent);
+    background-color: var(--global-code-bg-color) !important; 
+
+    transition: 
+      max-height 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.15), 
+      opacity 0.35s ease-in-out, 
+      padding 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.15);
+      
+    will-change: max-height, opacity;
+
+    pre, code, .highlighter-rouge {
+        overflow-x: auto !important;
+        display: block;
+        width: 100%;
+        margin: 0 !important;
+    }
+}
+
+// ==========================================================================
+// Arthur's Core High-Performance Console Trackway System (Horizon Fade Edition)
+// ==========================================================================
+.tech-matrix-console-deck {
+    display: flex;
+    flex-direction: column;
+    gap: 40px; 
+    width: 100%;
+    box-sizing: border-box !important;
+}
+
+.skills-console-module {
+    width: 100%;
+    box-sizing: border-box !important;
+    background-color: transparent !important;
+    padding-bottom: 24px;
+    border-bottom: 1px solid color-mix(in srgb, var(--global-text-color) 4%, transparent) !important;
+
+    &:hover {
+        .console-drag-hint {
+            opacity: 0.65;
+        }
+        .console-nav-panel {
+            border-color: var(--global-theme-color) !important;
+            color: var(--global-theme-color) !important;
+            opacity: 0.8 !important;
+        }
+    }
+}
+
+.console-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 18px;
+}
+
+.console-category-title {
+    font-size: 0.84rem !important;
+    letter-spacing: 1.7px;
+    color: var(--global-theme-color);
+    font-weight: 700;
+    text-transform: uppercase !important;
+    margin: 0 !important;
+}
+
+.console-drag-hint {
+    font-family: var(--global-code-font, monospace);
+    font-size: 0.68rem;
+    letter-spacing: 0.5px;
+    color: var(--global-text-color);
+    opacity: 0.15;
+    transition: opacity 0.25s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    i {
+        font-size: 0.75rem;
+        color: var(--global-theme-color);
+    }
+}
+
+// THE WORKSPACE CHAMBER TRACK
+.console-viewport-track {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 110px; // Elevated vertical thickness to comfortably accommodate scaling badge growth
+    box-sizing: border-box !important;
+}
+
+.console-slider-surface {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    cursor: grab;
+    touch-action: pan-y; 
+
+    // FIX: Deepened masking thresholds so edge contents blend into darkness without overcrowding layout boundaries
+    mask-image: linear-gradient(to right, transparent 0%, black 18%, black 82%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 18%, black 82%, transparent 100%);
+
+    &.grabbing {
+        cursor: grabbing !important;
+    }
+}
+
+// MINIMALIST CORE FIXED CROSSHAIR CENTER ARROW INDICATOR
+.console-center-alignment-arrow {
+    position: absolute;
+    top: -2px; // FIX: Pulled tighter against upper badge frame border to serve as a precise reticle lock
+    left: calc(50% + 0px); // FIXED: Uses valid calc math syntax to prevent compilation crashes
+    transform: translate3d(-50%, 0, 0);
+    color: var(--global-theme-color) !important; // Illuminates in your orange/red brand accent
+    font-size: 1rem;
+    z-index: 30; // Floats safely right over passing badges
+    pointer-events: none;
+    filter: drop-shadow(0 2px 8px color-mix(in srgb, var(--global-theme-color) 40%, transparent));
+}
+
+// THE HORIZONTAL HARDWARE RAIL CARRIER
+.console-slider-rail {
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    gap: 16px; // Uniform mechatronic spacing clearance gaps
+    height: 100%;
+    will-change: transform;
+}
+
+// THE SUBSTANTIAL HIGH-END INTERACTIVE BADGES
+.console-badge-item {
+    font-family: var(--global-code-font, monospace);
+    font-weight: 600 !important;
+    white-space: nowrap;
+    user-select: none;
+    border-radius: 6px;
+    
+    font-size: 0.9rem !important; 
+    padding: 10px 22px !important; 
+    
+    color: color-mix(in srgb, var(--global-text-color) 55%, transparent); // Understated default rest color
+    background-color: var(--global-code-bg-color) !important;
+    border: 1px solid var(--global-divider-color) !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15) !important;
+    
+    // Custom overshoot transformation curve handles satisfying scale jumps beautifully
+    transition: 
+      color 0.25s ease, 
+      border-color 0.25s ease, 
+      background-color 0.25s ease, 
+      transform 0.38s cubic-bezier(0.34, 1.56, 0.64, 1), // Snappy mechatronic detent spring
+      box-shadow 0.3s ease;
+      
+    will-change: transform, box-shadow;
+
+    // ACTIVE UNIQUE CENTER TARGET SELECTION HIGHLIGHT:
+    // Triggers ONLY on the absolute single closest item currently occupying the crosshair!
+    &.focal-center-badge {
+        color: var(--global-theme-color) !important;
+        border-color: var(--global-theme-color) !important;
+        font-weight: 700 !important;
+        
+        // PHYSICAL GROWTH VECTORS: Expands forward elegantly over neighboring items
+        transform: scale3d(1.18, 1.18, 1.18) translate3d(0, 1px, 0); 
+        
+        background-color: color-mix(in srgb, var(--global-theme-color) 4%, var(--global-code-bg-color)) !important;
+        box-shadow: 0 6px 20px color-mix(in srgb, var(--global-theme-color) 22%, transparent) !important;
+    }
+}
+
+// HIGH-CONTRAST FLOATING BUTTON CAPSULES (OUTSIDE MASK BOUNDS)
+.console-nav-panel {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 40px;
+    width: 40px;
+    background-color: var(--global-code-bg-color) !important; 
+    color: color-mix(in srgb, var(--global-text-color) 35%, transparent) !important;
+    border: 1px solid var(--global-divider-color) !important;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 35; // Floats clearly over mask horizons
+    opacity: 0.25; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease, opacity 0.25s ease, transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+
+    i {
+        font-size: 0.85rem;
+        pointer-events: none;
+    }
+
+    &.btn-left { 
+        left: -12px; // Out-set slightly beyond track parameters to maximize container focus real estate
+    }
+    
+    &.btn-right { 
+        right: -12px; 
+    }
+
+    &:hover {
+        background-color: var(--global-code-bg-color) !important;
+        border-color: var(--global-theme-color) !important;
+        color: var(--global-theme-color) !important;
+        opacity: 1 !important;
+        transform: translateY(-50%) scale3d(1.08, 1.08, 1.08);
+        box-shadow: 0 0 14px color-mix(in srgb, var(--global-theme-color) 20%, transparent) !important;
+    }
+
+    &:active {
+        transform: translateY(-50%) scale3d(0.95, 0.95, 0.95);
+    }
+}
+
+// MECHATRONIC BACKGROUND GEAR ASSEMBLY
+.console-background-gear-assembly {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5; // Sits safely in the background layer behind sliding cards
+    overflow: hidden;
+    
+    color: var(--global-text-color);
+    opacity: 0.04; 
+    display: block !important;
+
+    i {
+        position: absolute;
+        display: block;
+        will-change: transform;
+        line-height: 1 !important;
+        height: auto !important;
+        width: auto !important;
+        background: transparent !important;
+        font-size: 6.5rem !important; 
+    }
+
+    // Left Gear (Spins Clockwise)
+    .gear-primary {
+        top: calc(50% - 3.25rem); 
+        left: calc(50% - 98px);  
+        transform: rotate(calc(var(--track-x, 0) * 0.25deg));
+    }
+
+    // Right Gear (Interlocks and spins Counter-Clockwise)
+    .gear-secondary {
+        top: calc(50% - 3.25rem); 
+        left: calc(50%);    
+        
+        // +30deg phase offset so the teeth interlock into the gaps cleanly
+        transform: rotate(calc((var(--track-x, 0) * -0.25deg) + 30deg));
+    }
+}
+
+// ==========================================================================
+// Arthur's Software Console Interface Component Transition Pipeline
+// ==========================================================================
+#console-component-wrapper {
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    will-change: transform, opacity;
+}
+
+// PREMIUM 3D COMPONENT REVEAL: Runs immediately on fresh page mounts
+.console-entry-spring {
+    opacity: 0;
+    // Tucks the layout subtly deeper in 3D perspective space (scale 0.98) and offsets it down slightly
+    transform: scale3d(0.98, 0.98, 0.98) translate3d(0, 12px, 0);
+    
+    // Custom elastic overshoot curve that makes your skill blocks and titles pop open like a technical readout
+    animation: arthurConsoleMount 0.42s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+@keyframes arthurConsoleMount {
+    0% {
+        opacity: 0;
+        transform: scale3d(0.98, 0.98, 0.98) translate3d(0, 12px, 0);
+    }
+    100% {
+        opacity: 1;
+        transform: scale3d(1, 1, 1) translate3d(0, 0, 0); // Settles flush onto pixel boundaries
+    }
+}
+
+// PREMIUM KINETIC DISSOLVE DISMOUNT: Triggers smoothly when navigating away
+.console-exit-glide {
+    opacity: 1;
+    transform: scale3d(1, 1, 1) translate3d(0, 0, 0);
+    animation: arthurConsoleUnmount 0.25s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes arthurConsoleUnmount {
+    0% {
+        opacity: 1;
+        transform: scale3d(1, 1, 1) translate3d(0, 0, 0);
+    }
+    100% {
+        opacity: 0;
+        // Dissolves slightly upward, clearing the stage for the incoming workspace element
+        transform: scale3d(0.99, 0.99, 0.99) translate3d(0, -6px, 0);
+    }
+}
+
+// DYNAMIC FOCUSING
+.focus-group {
+    opacity: 0.03 !important; 
+    filter: blur(2px);
+    transition: 
+        opacity 0.5s cubic-bezier(0.215, 0.610, 0.355, 1),
+        filter 0.5s cubic-bezier(0.215, 0.610, 0.355, 1);
+    will-change: opacity, filter;
+}
+    
+.focus-group.is-focused {
+    opacity: 1 !important;
+    filter: blur(0px) !important;
+}
+
+// TYPOGRAPHY
+.section-heading {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 2.6rem;
+    font-weight: normal;
+    margin-top: 0px;
+    margin-bottom: 24px;
+    color: var(--global-text-color);
+    letter-spacing: -0.5px;
+}
+.section-subheading {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.9rem;
+    font-weight: normal;
+    margin-top: 40px;
+    margin-bottom: 30px;
+    color: var(--global-text-color);
+    letter-spacing: -0.5px;
+}
+.section-divider {
+    border: 0;
+    border-top: 1px solid var(--global-divider-color);
+    width: 100%;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.subtitle-theme {
+    line-height: 1.6;
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: 1.5px;
+    color: var(--global-theme-color);
+    min-width: 140px;
+    display: inline-block;
+    padding-top: 3px;
+    text-transform: uppercase;
+}
+.body-long {
+    line-height: 1.65;
+    font-size: 1.1rem;
+    font-weight: 350;
+    text-align: justify;
+    color: var(--global-text-color);
+}
+.body-normal {
+    line-height: 1.6;
+    font-size: 1rem;
+    font-weight: 300;
+    text-align: left;
+    color: var(--global-text-color);
+}
+.highlight {
+    color: var(--global-theme-color) !important;
+    font-weight: inherit !important;
+}
+.image-fig-text {
+    line-height: 1.6;
+    font-size: 0.85rem;
+    font-weight: 400;
+    min-width: auto;
+    padding: 0;
+    margin-top: 4px;
+    margin-bottom: 8px;
+    margin-right: 6px;
+    letter-spacing: 1.5px;
+    color: var(--global-theme-color);
+    display: inline-block;
+    text-transform: uppercase;
+}
+.image-caption {
+    font-size: 0.85rem !important;
+    font-weight: 300 !important;
+    letter-spacing: 0.3px !important;
+    margin-top: 4px;
+    margin-bottom: 8px;
+    text-align: center;
+    color: var(--global-text-color);
+    opacity: 0.8;
+}
+.card-container {
+    border-left: 4px solid var(--global-theme-color);
+    padding-left: 15px;
+    height: 100%;
+}
+.card-title {
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--global-text-color);
+    margin-bottom: 5px !important;
+}
+.card-body {
+    line-height: 1.6 !important;
+    font-size: 1rem;
+    margin: 0px !important;
+    padding: 0px !important;
+    color: var(--global-text-color);
+    text-align: left;
+}
+    
+
+/* --- DESKTOP AND MOBILE LAYOUT CONTROLS --- */
+@media (max-width: 767.98px) {
+    .sticky-media-column {
+        position: relative !important;
+        top: 0 !important;
+        margin-top: 30px;
+    }
+}
+
+// Motion accessibility support rules
+@media (prefers-reduced-motion: reduce) {
+  [class*="hovery"], .clicky, .outliny, [class^="zoomy"] {
+    transition: none !important;
+  }
+  
+  // FIX: Instantly snaps BOTH brackets into size without running animation paths
+  .outliny:hover::before,
+  .outliny:hover::after {
+    opacity: 1 !important;
+    width: 16px !important;
+    height: 16px !important;
+  }
+  
+  [class*="hovery"]:hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+  
+  [class^="zoomy"]:hover {
+    img, 
+    picture img,
+    figure img {
+      transform: none !important;
+    }
+  }
+
+  .accordion-toggle-input:checked ~ .portfolio-accordion .accordion-content {
+    max-height: 1500px !important;
+    opacity: 1 !important;
+    padding: 24px !important;
+    transition: none !important;
+  }
+  .accordion-icon {
+    transition: none !important;
+  }
+
+  .focus-group, .live-gif-loop {
+    opacity: 1 !important;
+    transition: none !important;
+  }
+
+  .console-entry-spring {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .console-exit-glide {
+    animation: none !important;
+    opacity: 0 !important;
+    transform: none !important;
+  }
 }

@@ -77,12 +77,12 @@
 
 html[data-theme="dark"] {
   color-scheme: dark;
-  --global-bg-color: #000000;
+  --global-bg-color: #040404;
   --global-code-bg-color: #{v.$code-bg-color-dark};
   --global-text-color: #efe6df;
   --global-text-color-dark: #9b8f79;
-  --global-theme-color: #ec9117;
-  --global-hover-color: #ec9117;
+  --global-theme-color: #EE421B;
+  --global-hover-color: #EE421B;
   --global-hover-text-color: #{v.$white-color};
   --global-hover-shadow-color: #9b8f79;
   --global-footer-bg-color: #{v.$grey-color-light};

@@ -3,85 +3,261 @@ layout: default
 ---
 <div class="post">
   <article>
-    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center w-100" style="gap: 80px; margin-top: 100px !important;">
-      
-      <!-- Left Column: Bio & Buttons -->
-      <div style="flex: 1; min-width: 280px; max-width: 500px;">
-        <p class="text-muted text-uppercase mb-2" style="font-size: 0.75rem; font-weight: 450; letter-spacing: 1.7px;">
-          A Portfolio Showcase
-        </p>
+    <!-- Focus Group 1: Main About Text Block -->
+    <div class="focus-group" data-group="about">
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-center w-100" style="gap: 80px; margin-top: 100px !important;">
         
-        <h1 class="display-4 font-weight-normal mb-4" style="font-family: 'Playfair Display', Georgia, serif; font-size: 3.8rem; margin-top: 0px; letter-spacing: 0px;">
-          {{ site.first_name }} {{ site.last_name }}
-        </h1>
+        <!-- Left Column: Bio & Buttons -->
+        <div style="flex: 1; min-width: 280px; max-width: 500px;">
+          <p class="text-muted text-uppercase mb-2" style="font-size: 0.75rem; font-weight: 400; letter-spacing: 1.7px; color: var(--global-theme-color) !important;">
+            A Portfolio Showcase
+          </p>
+          
+          <h1 class="display-4 font-weight-normal mb-4" style="font-family: 'Playfair Display', Georgia, serif; font-size: 3.9rem; margin-top: 0px; letter-spacing: 0.5px;">
+            {{ site.first_name }} {{ site.last_name }}
+          </h1>
+          
+          <div class="bio-content text-muted mb-5" style="line-height: 1.6; font-size: 1.05rem; font-weight: 300; text-align: justify; letter-spacing: 0.2px;">
+            {{ content }}
+          </div>
+          
+          <!-- Left-Aligned Button Spacing -->
+          <div class="d-flex flex-wrap align-items-center justify-content-between mt-4" style="width: 100%; gap: 14px;">
+    
+            <a href="/projects/" class="btn font-weight-bold text-uppercase clicky hovery2" 
+              style="text-decoration: none !important; border: 1px solid transparent !important; border-radius: 6px !important; font-size: 0.8rem; letter-spacing: 1.2px; flex: 1; min-width: 100px; text-align: center; color: var(--global-bg-color) !important; background-color: var(--global-text-color) !important; padding: 10px 0 !important; display: inline-block;">
+              Projects
+            </a>
+            
+            <a href="/" class="btn font-weight-bold text-uppercase outliny hovery2" 
+              style="text-decoration: none !important; border: 1px solid var(--global-divider-color) !important; border-radius: 6px !important; font-size: 0.8rem; letter-spacing: 1.2px; flex: 1; min-width: 100px; text-align: center; color: var(--global-text-color) !important; background-color: transparent !important; padding: 10px 0 !important; display: inline-block;">
+              Resume
+            </a>
+            
+            <a href="mailto:ArthurLawsonBusiness@gmail.com" class="btn font-weight-bold text-uppercase outliny hovery2" 
+              style="text-decoration: none !important; border: 1px solid var(--global-divider-color) !important; border-radius: 6px !important; font-size: 0.8rem; letter-spacing: 1.2px; flex: 1; min-width: 100px; text-align: center; color: var(--global-text-color) !important; background-color: transparent !important; padding: 10px 0 !important; display: inline-block;">
+              Contact
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Column: Image -->
+        {% if page.profile %}
+        <div class="d-flex flex-column align-items-center align-items-md-end mt-md-0 focus-group" data-group="about-photo" style="width: 100%; max-width: 440px; min-width: 280px; flex-shrink: 0;">
+          {% if page.profile.image %}
+            {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
+            <div class="shadowy zoomy20" style="width: 100%; aspect-ratio: 1 / 1; overflow: hidden; border-radius: 50%; border: 2px solid var(--global-text-color);">
+              <img src="{{ profile_image_path | relative_url }}" class="img-fluid" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            </div>
+          {% endif %}
+        </div>
+        {% endif %}
+
+      </div>
+    </div>
+
+    <hr class="section-divider" style="margin-top: 100px !important;">
+
+    <!-- SKILLS MATRIX -->
+    <div class="focus-group" data-group="technical-stack" style="margin-top: 100px; margin-bottom: 80px;">
+      <h2 class="section-heading" style="font-family: 'Playfair Display', Georgia, serif; font-size: 2.2rem; margin-bottom: 48px;">Technical Stack</h2>
+
+      <div class="tech-matrix-console-deck">
         
-        <div class="bio-content text-muted mb-5" style="line-height: 1.6; font-size: 1.05rem; font-weight: 300; text-align: justify; letter-spacing: 0.2px;">
-          {{ content }}
+        <!-- TELEMETRY NODE 1: Robotics & Embedded -->
+        <div class="skills-console-module">
+          <div class="console-panel-header">
+            <h3 class="console-category-title">Robotics & Embedded</h3>
+            <span class="console-drag-hint"><i class="fa-solid fa-hand-rock"></i> Drag Track or Click Arrows to Browse</span>
+          </div>
+          <div class="console-viewport-track">
+            
+            <!-- MECHATRONIC BACKGROUND GEARS LAYER -->
+            <div class="console-background-gear-assembly">
+              <i class="fa-solid fa-gear gear-primary"></i>
+              <i class="fa-solid fa-gear gear-secondary"></i>
+            </div>
+
+            <button class="console-nav-panel btn-left" aria-label="Slide Left"><i class="fa-solid fa-chevron-left"></i></button>
+            
+            <div class="console-slider-surface">
+              <div class="console-center-alignment-arrow"><i class="fa-solid fa-caret-down"></i></div>
+              <div class="console-slider-rail">
+                <div class="console-badge-item">C++</div>
+                <div class="console-badge-item">ESP32</div>
+                <div class="console-badge-item">Arduino</div>
+                <div class="console-badge-item">PID Control</div>
+                <div class="console-badge-item">I2C / SPI</div>
+              </div>
+            </div>
+            
+            <button class="console-nav-panel btn-right" aria-label="Slide Right"><i class="fa-solid fa-chevron-right"></i></button>
+          </div>
+        </div>
+
+        <!-- TELEMETRY NODE 2: Design & CAD -->
+        <div class="skills-console-module">
+          <div class="console-panel-header">
+            <h3 class="console-category-title">Design & CAD</h3>
+            <span class="console-drag-hint"><i class="fa-solid fa-hand-rock"></i> Drag Track or Click Arrows to Browse</span>
+          </div>
+          <div class="console-viewport-track">
+            
+            <!-- MECHATRONIC BACKGROUND GEARS LAYER -->
+            <div class="console-background-gear-assembly">
+              <i class="fa-solid fa-gear gear-primary"></i>
+              <i class="fa-solid fa-gear gear-secondary"></i>
+            </div>
+
+            <button class="console-nav-panel btn-left" aria-label="Slide Left"><i class="fa-solid fa-chevron-left"></i></button>
+            
+            <div class="console-slider-surface">
+              <div class="console-center-alignment-arrow"><i class="fa-solid fa-caret-down"></i></div>
+              <div class="console-slider-rail">
+                <div class="console-badge-item">SolidWorks</div>
+                <div class="console-badge-item">Fusion 360</div>
+                <div class="console-badge-item">KiCAD</div>
+                <div class="console-badge-item">3D Printing</div>
+                <div class="console-badge-item">PCB Design</div>
+              </div>
+            </div>
+            
+            <button class="console-nav-panel btn-right" aria-label="Slide Right"><i class="fa-solid fa-chevron-right"></i></button>
+          </div>
+        </div>
+
+        <!-- TELEMETRY NODE 3: Software & Analysis -->
+        <div class="skills-console-module">
+          <div class="console-panel-header">
+            <h3 class="console-category-title">Software & Analysis</h3>
+            <span class="console-drag-hint"><i class="fa-solid fa-hand-rock"></i> Drag Track or Click Arrows to Browse</span>
+          </div>
+          <div class="console-viewport-track">
+            
+            <!-- MECHATRONIC BACKGROUND GEARS LAYER -->
+            <div class="console-background-gear-assembly">
+              <i class="fa-solid fa-gear gear-primary"></i>
+              <i class="fa-solid fa-gear gear-secondary"></i>
+            </div>
+
+            <button class="console-nav-panel btn-left" aria-label="Slide Left"><i class="fa-solid fa-chevron-left"></i></button>
+            
+            <div class="console-slider-surface">
+              <div class="console-center-alignment-arrow"><i class="fa-solid fa-caret-down"></i></div>
+              <div class="console-slider-rail">
+                <div class="console-badge-item">Python</div>
+                <div class="console-badge-item">MATLAB</div>
+                <div class="console-badge-item">Git</div>
+                <div class="console-badge-item">NumPy</div>
+                <div class="console-badge-item">ROS2</div>
+              </div>
+            </div>
+            
+            <button class="console-nav-panel btn-right" aria-label="Slide Right"><i class="fa-solid fa-chevron-right"></i></button>
+          </div>
         </div>
         
-        <!-- Left-Aligned Button Spacing -->
-        <div class="d-flex flex-wrap align-items-center justify-content-between mt-4" style="width: 100%;">
-          <a href="/projects/" class="btn font-weight-bold text-uppercase hoverable" style="border: 1px solid var(--global-text-color) !important; border-radius: 6px !important; font-size: 0.8rem; letter-spacing: 1px; width: calc(33.33% - 12px); text-align: center; color: var(--global-bg-color) !important; background-color: var(--global-text-color) !important; line-height: 1.5 !important; padding-top: 8px !important; padding-bottom: 8px !important;">My Projects</a>
-          <a href="/" class="btn font-weight-bold text-uppercase hoverable" style="border: 1px solid var(--global-text-color) !important; border-radius: 6px !important; font-size: 0.8rem; letter-spacing: 1px; width: calc(33.33% - 12px); text-align: center; color: var(--global-text-color) !important; background-color: transparent !important; line-height: 1.5 !important; padding-top: 8px !important; padding-bottom: 8px !important;">Resume</a>
-          <a href="mailto:ArthurLawsonBusiness@gmail.com" class="btn font-weight-bold text-uppercase hoverable" style="border: 1px solid var(--global-text-color) !important; border-radius: 6px !important; font-size: 0.8rem; letter-spacing: 1px; width: calc(33.33% - 12px); text-align: center; color: var(--global-text-color) !important; background-color: transparent !important; line-height: 1.5 !important; padding-top: 8px !important; padding-bottom: 8px !important;">Contact</a>
-        </div>  
-      </div>
-
-      <!-- Right Column: Image -->
-      {% if page.profile %}
-      <div class="d-flex flex-column align-items-center align-items-md-end mt-md-0" style="width: 100%; max-width: 440px; min-width: 280px; flex-shrink: 0;">
-        {% if page.profile.image %}
-          {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
-          <div class="zoomable" style="width: 100%; aspect-ratio: 1 / 1; overflow: hidden; border-radius: 50%; border: 3px solid var(--global-text-color);">
-            <img src="{{ profile_image_path | relative_url }}" class="img-fluid" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-          </div>
-        {% endif %}
-      </div>
-      {% endif %}
-    </div>
-
-    <div class="skills-section" style="margin-top: 100px; margin-bottom: 20px;">
-  
-    <div style="border-top: 2px solid var(--global-divider-color); width: 100%; margin-top: 100px; margin-bottom: 30px;"></div>
-
-    <h2 class="font-weight-normal mb-5" style="font-family: 'Playfair Display', Georgia, serif; font-size: 2.2rem; margin-top: 0px; margin-bottom: 10px;">
-      Technical Stack
-    </h2>
-
-    <div class="row style-grid" style="gap: 30px 0;">
-      
-      <!-- Category 1: Robotics & Embedded -->
-      <div class="col-md-4">
-        <h3 class="h5 font-weight-bold text-uppercase mb-3" style="font-size: 0.85rem; letter-spacing: 1.5px; color: var(--global-theme-color);">Robotics & Embedded</h3>
-        <ul class="text-color" style="list-style-type: none; padding-left: 0; line-height: 2; font-size: 0.95rem; font-weight: 300;">
-          <li><span style="color: var(--global-text-color); font-weight: 400;">&#9642;</span> C++</li>
-          <li><span style="color: var(--global-text-color); font-weight: 400;">&#9642;</span> ESP32</li>
-          <li><span style="color: var(--global-text-color); font-weight: 400;">&#9642;</span> Arduino</li>
-          <li><span style="color: var(--global-text-color); font-weight: 400;">&#9642;</span> PID Control</li>
-          <li><span style="color: var(--global-text-color); font-weight: 400;">&#9642;</span> I2C / SPI Protocols</li>
-        </ul>
-      </div>
-
-      <!-- Category 2: Design & Fabrication -->
-      <div class="col-md-4">
-        <h3 class="h5 font-weight-bold text-uppercase mb-3" style="font-size: 0.85rem; letter-spacing: 1.5px; color: var(--global-theme-color);">Design & CAD</h3>
-        <ul class="text-color" style="list-style-type: none; padding-left: 0; line-height: 2; font-size: 0.95rem; font-weight: 300;">
-          <li><span style="color: var(--global-text-color); font-weight: 400;">&#9642;</span> SolidWorks</li>
-          <li><span style="color: var(--global-text-color); font-weight: 400;">&#9642;</span> Fusion 360</li>
-          <li><span style="color: var(--global-text-color); font-weight: 400;">&#9642;</span> KiCAD (PCB Design)</li>
-          <li><span style="color: var(--global-text-color); font-weight: 400;">&#9642;</span> 3D Printing (FDM)</li>
-        </ul>
-      </div>
-
-      <!-- Category 3: Software & Analysis -->
-      <div class="col-md-4">
-        <h3 class="h5 font-weight-bold text-uppercase mb-3" style="font-size: 0.85rem; letter-spacing: 1.5px; color: var(--global-theme-color);">Software & Analysis</h3>
-        <ul class="text-color" style="list-style-type: none; padding-left: 0; line-height: 2; font-size: 0.95rem; font-weight: 300;">
-          <li><span style="color: var(--global-text-color); font-weight: 400;">&#9642;</span> Python</li>
-          <li><span style="color: var(--global-text-color); font-weight: 400;">&#9642;</span> MATLAB</li>
-          <li><span style="color: var(--global-text-color); font-weight: 400;">&#9642;</span> Git Version Control</li>
-        </ul>
       </div>
     </div>
-  </div>
+
+  </article>
 </div>
+
+<!-- ==========================================================================
+      Arthur's Index-Driven Console Snap Engine (100% Un-Throttled Loop)
+      ========================================================================= -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll(".skills-console-module").forEach(mod => {
+          const surf = mod.querySelector(".console-slider-surface"), rail = mod.querySelector(".console-slider-rail");
+          const bLeft = mod.querySelector(".btn-left"), bRight = mod.querySelector(".btn-right");
+          const origs = Array.from(rail.querySelectorAll(".console-badge-item")), len = origs.length;
+          origs.forEach(it => rail.appendChild(it.cloneNode(true)));
+          origs.slice().reverse().forEach(it => rail.insertBefore(it.cloneNode(true), rail.firstChild));
+          const badges = Array.from(rail.querySelectorAll(".console-badge-item"));
+          let activeIdx = len, curX = 0, isDrag = false, startX = 0, origX = 0, vel = 0, lastX = 0, frameId = null;
+          let gearRot = 0, smoothRot = 0, gearFrameId = null;
+          const friction = 0.94, gap = 16;
+          const updateFocus = () => badges.forEach((b, i) => b.classList.toggle("focal-center-badge", i === activeIdx));
+          const getOffset = (idx) => {
+              if (!badges[idx]) return 0;
+              let l = 0; for (let i = 0; i < idx; i++) l += badges[i].offsetWidth + gap;
+              return (surf.offsetWidth / 2) - (l + (badges[idx].offsetWidth / 2));
+          };
+          function posSlider(smooth = true, delta = 0) {
+              const prev = curX; curX = getOffset(activeIdx);
+              if (smooth) {
+                  rail.style.transition = "transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)";
+                  gearRot += (delta !== 0) ? delta : (curX - prev);
+              } else rail.style.transition = "transform 0s linear";
+              rail.style.transform = `translate3d(${curX}px,0,0)`; updateFocus();
+              if (!gearFrameId) gearFrameId = requestAnimationFrame(animateGears);
+          }
+          function preventOverflow(dir) {
+              let adj = false; const W = getOffset(len) - getOffset(len * 2);
+              if (dir === "left" && activeIdx <= len) { activeIdx += len; curX -= W; adj = true; }
+              else if (dir === "right" && activeIdx >= len * 2 - 1) { activeIdx -= len; curX += W; adj = true; }
+              if (adj) { rail.style.transition = "transform 0s linear"; rail.style.transform = `translate3d(${curX}px,0,0)`; rail.offsetHeight; }
+          }
+          rail.addEventListener("transitionend", (e) => {
+              if (e.target !== rail || isDrag || frameId) return;
+              let r = false; const W = getOffset(len) - getOffset(len * 2);
+              if (activeIdx < len) { activeIdx += len; curX -= W; r = true; }
+              else if (activeIdx >= len * 2) { activeIdx -= len; curX += W; r = true; }
+              if (r) { rail.style.transition = "transform 0s linear"; rail.style.transform = `translate3d(${curX}px,0,0)`; rail.offsetHeight; updateFocus(); }
+          });
+          function checkWrap() {
+              const limL = getOffset(len - 1), limR = getOffset(len * 2), W = getOffset(len) - getOffset(len * 2);
+              if (curX > limL) { curX -= W; if (isDrag) origX -= W; } else if (curX < limR) { curX += W; if (isDrag) origX += W; }
+          }
+          function animateGears() {
+              smoothRot += (gearRot - smoothRot) * 0.12; mod.style.setProperty('--track-x', smoothRot);
+              if (Math.abs(gearRot - smoothRot) < 0.05 && vel === 0 && !isDrag && !rail.style.transition.includes("0.4s")) {
+                  smoothRot = gearRot; mod.style.setProperty('--track-x', smoothRot); gearFrameId = null; return;
+              }
+              gearFrameId = requestAnimationFrame(animateGears);
+          }
+          function trackFocus() {
+              const center = surf.offsetWidth / 2; let near = activeIdx, min = Infinity;
+              for (let i = len - 1; i <= len * 2; i++) {
+                  let l = 0; for (let j = 0; j < i; j++) l += badges[j].offsetWidth + gap;
+                  const d = Math.abs(center - (curX + l + (badges[i].offsetWidth / 2))); if (d < min) { min = d; near = i; }
+              }
+              activeIdx = near; updateFocus();
+          }
+          function ticker() {
+              if (isDrag) return; vel *= friction; curX += vel; gearRot += vel; checkWrap();
+              if (Math.abs(vel) < 0.15) { vel = 0; cancelAnimationFrame(frameId); frameId = null; trackFocus(); posSlider(true); return; }
+              rail.style.transition = "transform 0s linear"; rail.style.transform = `translate3d(${curX}px,0,0)`; trackFocus();
+              frameId = requestAnimationFrame(ticker);
+          }
+          function onStart(x) { isDrag = true; surf.classList.add("grabbing"); startX = x; lastX = x; origX = curX; vel = 0; if (frameId) cancelAnimationFrame(frameId); rail.style.transition = "transform 0s linear"; if (!gearFrameId) gearFrameId = requestAnimationFrame(animateGears); }
+          function onMove(x) { if (!isDrag) return; vel = x - lastX; lastX = x; curX = origX + (x - startX); gearRot += vel; checkWrap(); rail.style.transition = "transform 0s linear"; rail.style.transform = `translate3d(${curX}px,0,0)`; trackFocus(); }
+          function onEnd() { if (!isDrag) return; isDrag = false; surf.classList.remove("grabbing"); frameId = requestAnimationFrame(ticker); }
+          surf.addEventListener("mousedown", e => onStart(e.clientX)); window.addEventListener("mousemove", e => onMove(e.clientX)); window.addEventListener("mouseup", onEnd);
+          surf.addEventListener("touchstart", e => { if(e.touches && e.touches.length) onStart(e.touches[0].clientX); }, { passive: true });
+          window.addEventListener("touchmove", e => { if(e.touches && e.touches.length) onMove(e.touches[0].clientX); }, { passive: true });
+          window.addEventListener("touchend", onEnd);
+          bLeft.addEventListener("click", () => { if (frameId) cancelAnimationFrame(frameId); preventOverflow("left"); const size = badges[activeIdx - 1] ? badges[activeIdx - 1].offsetWidth + gap : 150; activeIdx -= 1; posSlider(true, size); });
+          bRight.addEventListener("click", () => { if (frameId) cancelAnimationFrame(frameId); preventOverflow("right"); const size = badges[activeIdx + 1] ? -(badges[activeIdx + 1].offsetWidth + gap) : -150; activeIdx += 1; posSlider(true, size); });
+          setTimeout(() => { posSlider(false); smoothRot = gearRot = curX; mod.style.setProperty('--track-x', smoothRot); }, 120); window.addEventListener("resize", () => posSlider(false));
+      });
+  });
+</script>
+
+<!-- Scroll Focus Engine -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const focusItems = document.querySelectorAll(".focus-group");
+    if (!focusItems.length) return;
+
+    // Sets focal target arcs (Wakes up sections gracefully when crossing center view limits)
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        entry.target.classList.toggle("is-focused", entry.isIntersecting);
+      });
+    }, { rootMargin: "-25% 0px -15% 0px", threshold: [0, 0.15] }); // dont show for top 27% and bottom 17% of screen
+
+    focusItems.forEach(item => observer.observe(item));
+  });
+</script>
