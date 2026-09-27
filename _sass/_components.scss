@@ -276,152 +276,134 @@ ul.task-list input[type="checkbox"] {
    Arthur's Custom Core Layout Utilities
    ========================================================================== */
 
-// Initialize the transition variables globally on elements so they don't break if used alone
-[class*="hovery"], .clicky, .outliny {
-    --hover-trans: transform 0s, box-shadow 0s;
-    --click-trans: border-color 0s, box-shadow 0s;
-    
-    // If only one class is present, the other stays at 0s
-    transition: var(--hover-trans), var(--click-trans) !important;
+// Initialize smooth animations for ALL properties upfront.
+[class*="hovery"], .clicky, .outliny, .timeline-step, .shadowy {
+  --resting-shadow: 0 0 0 transparent;
+  --clicky-ring: 0 0 0 0 transparent;
+  --lift-shadow: 0 0 0 transparent;
+  box-shadow: var(--clicky-ring), var(--resting-shadow), var(--lift-shadow);
+
+  transition: 
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), 
+    box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
+    border-color 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.4s cubic-bezier(0.22, 1, 0.36, 1), 
+    color 0.3s ease !important;
 }
 
-// Shadow base below photos and stuff
+// SHADOWY: Drops a clean, soft resting shadow below static items. 
 .shadowy {
   border: none !important;
   border-radius: 6px;
-  
-  box-shadow: 
+  --resting-shadow: 
     0 4px 6px -1px color-mix(in srgb, #000000 8%, transparent),
-    0 2px 4px -2px color-mix(in srgb, #000000 6%, transparent) !important;
+    0 2px 4px -2px color-mix(in srgb, #000000 6%, transparent);
 }
 
-// Outline Quick
+// CLICKY: Draws a 2px theme accent border ring around the component on hover.
 .clicky {
-  --click-trans: 
-    border-color 0.3s cubic-bezier(0.215, 0.61, 0.355, 1),
-    box-shadow 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
   cursor: pointer;
   border-radius: 6px;
+  border: none !important;
+  will-change: transform, box-shadow; // Protects hardware frames from micro-stutter sags
+  
+  &:hover {
+    --clicky-ring: 0 0 0 2px var(--global-theme-color);
+  }
+
+  &:active {
+    transform: scale3d(0.97, 0.95, 0.97) !important;
+    transition: transform 0.1s cubic-bezier(0.25, 1, 0.5, 1) !important; // Fast, snappy press collapse timing profile
+  }
 }
 
-.clicky:hover {
-  border-color: var(--global-theme-color) !important;
-  
-  --solid-border-expand: 0 0 0 2px var(--global-theme-color);
-  
-  box-shadow: 
-    var(--solid-border-expand),
-    0 4px 6px -1px color-mix(in srgb, #000000 8%, transparent),
-    0 2px 4px -2px color-mix(in srgb, #000000 6%, transparent) !important;
-}
-
-// Corner Outline Draw
+// OUTLINY: Draws them accent corner brackets on hover.
 .outliny {
   position: relative;
   cursor: pointer;
   border-radius: 6px;
   box-sizing: border-box !important;
-  transition: color 0.3s ease, border-color 0.3s ease !important;
+  border: none !important;
   
-  &::before,
-  &::after {
+  &::before, &::after {
     content: '';
     position: absolute;
     width: 0;
     height: 0;
     border: 0 solid var(--global-theme-color);
-    transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1), 
-                height 0.3s cubic-bezier(0.25, 1, 0.5, 1), 
+    transition: width 0.35s cubic-bezier(0.25, 1, 0.5, 1), 
+                height 0.35s cubic-bezier(0.25, 1, 0.5, 1), 
                 opacity 0.2s ease;
     opacity: 0;
     z-index: 10 !important;
     pointer-events: none;
     box-sizing: border-box !important;
   }
+  &::before { top: -1px; left: -1px; border-top-width: 2px; border-left-width: 2px; border-top-left-radius: 6px; }
+  &::after { bottom: -1px; right: -1px; border-bottom-width: 2px; border-right-width: 2px; border-bottom-right-radius: 6px; }
+  &:hover { color: var(--global-theme-color) !important; }
+  &:hover::before, &:hover::after { opacity: 1; width: 20px; height: 20px; }
+}
 
-  &::before { 
-    top: -1px; 
-    left: -1px; 
-    border-top-width: 2px; 
-    border-left-width: 2px; 
-    border-top-left-radius: 6px;
-  }
+// TIMELINE-STEP: Custom container styling rules for vertical tracks.
+.timeline-step {
+  padding: 15px 20px;
+  border-radius: 6px;
+  border: none !important;
   
-  &::after { 
-    bottom: -1px; 
-    right: -1px; 
-    border-bottom-width: 2px; 
-    border-right-width: 2px; 
-    border-bottom-right-radius: 6px; 
+  .timeline-node {
+    transition: 
+      transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+      border-color 0.4s ease,
+      background-color 0.4s ease,
+      color 0.4s ease;
   }
-
   &:hover {
-    color: var(--global-theme-color) !important;
-    border-color: transparent !important; 
-  }
-
-  &:hover::before,
-  &:hover::after {
-    opacity: 1;
-    width: 16px;   
-    height: 16px;  
+    background-color: color-mix(in srgb, var(--global-theme-color) 6%, transparent);
+    .timeline-node {
+      transform: scale(1.20);
+      background-color: var(--global-theme-color) !important;
+      color: var(--global-bg-color) !important;
+    }
+    h4 { color: var(--global-theme-color) !important; }
   }
 }
 
-// HOVER Lifts an element up elastically and drops a clean shadow
+// HOVERY: Smoothly lifts the component vertically by the pixel count you select and adds shadow.
 @each $pixels in 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 {
-  
   .hovery#{$pixels} {
     transform-style: preserve-3d;
     backface-visibility: hidden;
     will-change: transform, box-shadow;
-
-    --hover-trans: 
-      transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), 
-      box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         
     &:hover {
-        transform: translate3d(0, -#{$pixels}px, 0) !important;
-        
-        // Shadows get softer and larger as height increases
-        --drop-shadow: 
-            0 #{calc($pixels * 3.2)}px #{calc($pixels * 6.4)}px color-mix(in srgb, #000000 12%, transparent),
-            0 #{calc($pixels * 1.2)}px #{calc($pixels * 2.8)}px color-mix(in srgb, #000000 10%, transparent);
-            
-        box-shadow: var(--drop-shadow), var(--solid-border-expand, 0 0 0 0 transparent) !important;
+      transform: translate3d(0, -#{$pixels}px, 0) !important;
+      
+      --lift-shadow: 
+        0 #{calc($pixels * 3.2)}px #{calc($pixels * 6.4)}px color-mix(in srgb, #000000 12%, transparent),
+        0 #{calc($pixels * 1.2)}px #{calc($pixels * 2.8)}px color-mix(in srgb, #000000 10%, transparent) !important;
     }
   }
 }
 
-// ZOOM zooms the image inside by desired amount
+// ZOOMY: Smoothly zooms the inner image by the percentage scale selected.
 @each $percent in 3, 4, 5, 6, 7, 8, 9, 10, 20, 30, 40 {
-  
   .zoomy#{$percent} {
     isolation: isolate;
     perspective: 1000px; 
-    
     overflow: hidden !important; 
     position: relative !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-
-    img, 
-    picture img,
-    figure img {
+    
+    img, picture img, figure img {
         width: 100% !important;
         transform: scale(1.01); 
         transition: transform 0.7s cubic-bezier(0.35, 0, 0.2, 1) !important;
         will-change: transform;
     }
-
-    &:hover {
-        img, 
-        picture img,
-        figure img { 
-            transform: scale(1.01 + calc($percent / 100)) !important; 
-        }
-    }
+    &:hover { img, picture img, figure img { transform: scale(1.01 + calc($percent / 100)) !important; } }
   }
 }
 
@@ -432,7 +414,7 @@ ul.task-list input[type="checkbox"] {
 }
 
 .medium-zoom-overlay {
-  opacity: 0.85 !important; 
+  opacity: 0.6 !important; 
 }
 
 // ==========================================================================
@@ -447,13 +429,26 @@ ul.task-list input[type="checkbox"] {
     box-sizing: border-box !important;
     overflow: hidden;
     
-    border: 1px solid var(--global-text-color) !important;
+    // RESTING STATE: Thin transparent grey border line matching the flip card baseline
+    border: 1px solid color-mix(in srgb, var(--global-text-color) 8%, transparent) !important;
+    
+    // Integrated with your exact central haptic transition timing profiles
+    transition: 
+      border-color 0.25s ease, 
+      box-shadow 0.25s ease;
+
+    // MATCHES FLIP CARDS HOVER: Illuminates the outer border to a soft 25% grey on mouse entry
+    &:hover {
+        border-color: color-mix(in srgb, var(--global-text-color) 25%, transparent) !important;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
 }
 
 .accordion-toggle-input {
     display: none !important;
 }
 
+// 1. Upgraded Header Core Block
 .accordion-header {
     display: flex;
     justify-content: space-between;
@@ -466,70 +461,92 @@ ul.task-list input[type="checkbox"] {
     cursor: pointer;
     user-select: none;
     margin: 0 !important;
+    position: relative;
+    z-index: 5;
     
     color: var(--global-text-color) !important; 
     background-color: transparent !important; 
-    transition: color 0.25s ease;
+    
+    transition: 
+      color 0.25s ease, 
+      transform 0.1s cubic-bezier(0.25, 1, 0.5, 1);
+    
+    will-change: transform;
 
     &:hover,
     &:hover span {
         color: var(--global-theme-color) !important;
     }
+
+    &:active {
+        transform: scale3d(0.99, 0.97, 0.99) !important;
+    }
 }
 
-// Plus Icon
+// 2. Plus/Cross Mechanical Icon Node
 .accordion-icon {
     position: relative;
     width: 14px;
     height: 14px;
     transform: rotate(0deg);
-    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important; 
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.33, 1) !important; 
     will-change: transform;
     flex-shrink: 0;
     pointer-events: none;
     
-    &::before {
+    &::before, &::after {
         content: '';
         position: absolute;
+        background-color: var(--global-text-color);
+        transition: background-color 0.25s ease !important;
+    }
+
+    &::before {
         top: 6px;
         left: 0;
         width: 14px;
         height: 2px;
-        background-color: var(--global-text-color);
-        transition: background-color 0.25s ease !important;
     }
 
     &::after {
-        content: '';
-        position: absolute;
         top: 0;
         left: 6px;
         width: 2px;
         height: 14px;
-        background-color: var(--global-text-color);
-        transition: background-color 0.25s ease !important;
     }
 
-    .accordion-header:hover &::before, .accordion-header:hover &::after { background-color: var(--global-theme-color) !important; }
+    .accordion-header:hover &::before, 
+    .accordion-header:hover &::after { 
+        background-color: var(--global-theme-color) !important; 
+    }
 }
 
+// 3. Active Checkbox Checked Architecture Core States
 .accordion-toggle-input:checked ~ .portfolio-accordion {
     
-    // Locks text and icon to them colour permanently when open at rest
+    // LOCKED OPEN STATE: Instantly overrides resting gray changes with the orange ring halo
+    border-color: var(--global-theme-color) !important;
+    box-shadow: 0 0 0 1px var(--global-theme-color), 0 10px 25px rgba(0, 0, 0, 0.2) !important;
+
+    // Forces a sticky hover shield to maintain matching border highlights when open
+    &:hover {
+        border-color: var(--global-theme-color) !important;
+        box-shadow: 0 0 0 1px var(--global-theme-color), 0 12px 30px rgba(0, 0, 0, 0.25) !important;
+    }
+
     .accordion-header,
     .accordion-header span {
         color: var(--global-theme-color) !important;
     }
     
     .accordion-icon {
-        transform: rotate(135deg) !important; // Flips '+' to a '×' smoothly
+        transform: rotate(135deg) !important;
         
         &::before, &::after {
             background-color: var(--global-theme-color) !important;
         }
     }
 
-    // Hovering over the open button header forces it back to white text
     .accordion-header:hover,
     .accordion-header:hover span {
         color: var(--global-text-color) !important;
@@ -540,7 +557,6 @@ ul.task-list input[type="checkbox"] {
         }
     }
 
-    // Rolls the content box down over exactly 2 seconds
     .accordion-content {
         max-height: 1500px;
         opacity: 1;
@@ -548,6 +564,7 @@ ul.task-list input[type="checkbox"] {
     }
 }
 
+// 4. Content Drawer Viewport Frame
 .accordion-content {
     max-height: 0;
     opacity: 0;
@@ -558,9 +575,9 @@ ul.task-list input[type="checkbox"] {
     background-color: var(--global-code-bg-color) !important; 
 
     transition: 
-      max-height 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.15), 
+      max-height 0.45s cubic-bezier(0.25, 1, 0.33, 1), 
       opacity 0.35s ease-in-out, 
-      padding 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.15);
+      padding 0.45s cubic-bezier(0.25, 1, 0.33, 1);
       
     will-change: max-height, opacity;
 
@@ -573,7 +590,7 @@ ul.task-list input[type="checkbox"] {
 }
 
 // ==========================================================================
-// Arthur's Core High-Performance Console Trackway System (Horizon Fade Edition)
+// Arthur's Spinning Physics Console Trackway System
 // ==========================================================================
 .tech-matrix-console-deck {
     display: flex;
@@ -817,6 +834,755 @@ ul.task-list input[type="checkbox"] {
     }
 }
 
+/* ==========================================================================
+   ARTHUR'S UNIVERSAL DISCRETE CARD CAROUSEL
+   ========================================================================== */
+.discrete-card-carousel {
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden; 
+
+    // 1. Center Frame Layout Wrapper
+    .carousel-centering-frame {
+        position: relative;
+        max-width: 900px; 
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 540px; 
+
+        &:hover {
+            .carousel-nav-btn {
+                border-color: var(--global-theme-color) !important;
+                color: var(--global-theme-color) !important;
+                opacity: 0.8 !important;
+                box-shadow: 0 0 14px color-mix(in srgb, var(--global-theme-color) 20%, transparent) !important;
+            }
+        }
+    }
+
+    // Kinetic Mechanical Background Gear Matrix
+    .kinetic-gear-assembly-track {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+        overflow: hidden;
+        color: var(--global-text-color);
+        opacity: 0.04;
+
+        div {
+            position: absolute;
+            top: 50%;
+            transform: translate3d(-50%, -50%, 0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &:first-of-type { left: calc(50% - 246px); }
+            &:last-of-type { left: calc(50% + 246px); }
+        }
+
+        i {
+            font-size: 20rem !important; 
+            line-height: 1 !important; 
+            will-change: transform;
+            transform-style: preserve-3d;
+        }
+
+        @media (max-width: 820px) { display: none !important; }
+    }
+
+    // 2. High-End Single-Card Viewport Surface
+    // FIX: Set max-width to 492px for desktop, but fall back to a safe 90vw on narrow viewports
+    .carousel-viewport-surface {
+        width: 90vw;
+        max-width: 492px; 
+        height: 512px; 
+        overflow: visible; 
+        position: relative;
+        cursor: grab;
+        touch-action: pan-y;
+        border-radius: 6px;
+        user-select: none;
+        background: transparent !important;
+        box-sizing: border-box;
+        z-index: 10; 
+
+        &.grabbing { cursor: grabbing !important; }
+    }
+
+    // NEW FIXED CHAMBER TRACKWAY
+    // FIX: Added adaptive viewport scales so masking borders adapt nicely to narrow smartphone grids
+    .carousel-card-chamber {
+        width: 100%;
+        max-width: 492px; 
+        height: 100%;
+        overflow: hidden !important; 
+        border-radius: 6px;
+        position: relative;
+        padding: 16px !important; 
+        box-sizing: border-box !important;
+    }
+
+    // 3. The Horizontal Trackways Carrier (The Rail)
+    .carousel-slider-rail {
+        display: flex !important;
+        flex-direction: row !important;
+        height: 100%;
+        width: max-content; /* Ensure rail opens up to fit multiple dynamic widths */
+        will-change: transform;
+        transform-style: preserve-3d;
+        perspective: 1000px;
+        gap: 16px !important; 
+    }
+
+    // 4. Premium Structural Card Layout
+    // FIX: Converted width: 460px over to fluid width: 100% with a hard cap max-width boundary rule
+    .discrete-content-card {
+        width: calc(90vw - 32px) !important; /* Subtracts left/right chamber paddings completely on mobile */
+        max-width: 460px !important; /* Locks back right into your exact desktop size bounds on PC */
+        flex-shrink: 0 !important;
+        height: 460px;
+        background-color: var(--global-card-bg-color) !important;
+        border: 1px solid color-mix(in srgb, var(--global-text-color) 8%, transparent) !important;
+        border-radius: 6px;
+        padding: 22px;
+        box-sizing: border-box !important;
+        display: flex;
+        flex-direction: column;
+        
+        transition: 
+          transform 0.5s cubic-bezier(0.25, 1, 0.33, 1),
+          box-shadow 0.25s ease,
+          border-color 0.25s ease,
+          opacity 0.4s ease;
+
+        p {
+            margin: 0;
+            font-size: 0.88rem !important; 
+            line-height: 1.6 !important;
+            color: var(--global-text-color);
+            opacity: 0.8;
+            letter-spacing: -0.005em;
+        }
+
+        h4 {
+            margin: 0 0 8px 0;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--global-theme-color);
+            letter-spacing: -0.01em;
+        }
+    }
+
+    // 5. Flank Navigation Panel Control Buttons
+    .carousel-nav-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 40px;
+        width: 40px;
+        background-color: var(--global-code-bg-color) !important; 
+        color: color-mix(in srgb, var(--global-text-color) 35%, transparent) !important;
+        border: 1px solid var(--global-divider-color) !important;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 45; 
+        opacity: 0.25; 
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+        transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease, opacity 0.25s ease, transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.25s ease;
+
+        i {
+            font-size: 0.85rem;
+            pointer-events: none;
+        }
+
+        &.btn-left { left: -18px; } 
+        &.btn-right { right: -18px; }
+
+        @media (max-width: 500px) {
+            // Micro-adjust button overlays on tight mobile viewports to prevent edge clippings
+            &.btn-left { left: -12px; }
+            &.btn-right { right: -12px; }
+        }
+
+        &:hover {
+            background-color: var(--global-code-bg-color) !important;
+            border-color: var(--global-theme-color) !important;
+            color: var(--global-theme-color) !important;
+            opacity: 1 !important;
+            transform: translateY(-50%) scale3d(1.08, 1.08, 1.08) !important;
+            box-shadow: 0 0 14px color-mix(in srgb, var(--global-theme-color) 20%, transparent) !important;
+        }
+
+        &:active { transform: translateY(-50%) scale3d(0.95, 0.95, 0.95) !important; }
+    }
+}
+
+/* ==========================================================================
+   ARTHUR'S PROJECT OUTRO SCSS (.project-outro)
+   ========================================================================== */
+.project-outro {
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 20px;
+    margin-bottom: 80px;
+    position: relative;
+    overflow: hidden; // Keeps the left half of the gear cleanly off-screen
+
+    .outro-structural-bounds {
+        width: 100%;
+        display: flex;
+        align-items: center;  
+        gap: 20px; 
+        box-sizing: border-box;
+        position: relative;
+    }
+
+    // EXPANDED VIEWPORT CHASSIS HULL
+    .gear-viewport-hull {
+        flex: 0 0 320px; 
+        height: 600px; 
+        position: relative;
+        overflow: visible; 
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        touch-action: none; 
+
+        // AMBIENT GLOW BACK-GRADIENT: Creates a soft, futuristic orange background depth behind the gear wheel
+        &::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -150px; // Centers perfectly underneath the canvas rotation hub axis
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, color-mix(in srgb, var(--global-theme-color) 12%, transparent) 0%, transparent 30%);
+            transform: translateY(-50%);
+            z-index: 1; 
+            pointer-events: none;
+        }
+    }
+
+    #mechanical-rotary-canvas {
+        position: absolute;
+        top: 50%;
+        left: -210px; 
+        width: 420px;
+        height: 420px;
+        transform: translateY(-50%);
+        pointer-events: auto;
+        z-index: 5;
+        
+        // Tells the browser engine to route layout processing straight to the device GPU
+        will-change: transform; 
+        background-color: transparent; 
+    }
+
+    // Typography Radial Orbit Labels Matrix
+    .gear-text-tooth-orbit {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transform-style: preserve-3d;
+        pointer-events: none;
+        z-index: 10;
+
+        .tooth-text-anchor {
+            position: absolute;
+            top: 0; 
+            left: 0;
+            width: 195px;
+            height: 34px;
+            margin-top: -17px; 
+            display: inline-flex;
+            align-items: center;
+            justify-content: flex-start;
+            pointer-events: auto;
+            cursor: pointer;
+            user-select: none;
+            
+            font-size: 0.80rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: var(--global-text-color); 
+            opacity: 0.45; 
+            background-color: transparent !important; 
+            padding: 0 !important;
+            
+            transform-origin: left center; 
+            
+            transition: opacity 0.4s cubic-bezier(0.25, 1, 0.33, 1), 
+                        color 0.4s cubic-bezier(0.25, 1, 0.33, 1),
+                        letter-spacing 0.3s cubic-bezier(0.25, 1, 0.33, 1),
+                        border-color 0.3s ease;
+
+            &:hover {
+                opacity: 0.85 !important;
+                color: var(--global-theme-color);
+                letter-spacing: 1px;
+            }
+
+            &.active-tooth-label {
+                opacity: 1 !important;
+                color: var(--global-theme-color) !important; // Stands out solely through your blue variable color pop
+                font-weight: 700;
+                letter-spacing: 1.2px; 
+                background-color: transparent !important;
+                text-shadow: none !important; // Cleanly double-checked gone
+            }
+        }
+    }
+
+    // EXPANDED CONTENT DRAWER MATRIX PANELS
+    .outro-console-chamber {
+        flex: 3; 
+        min-height: 600px;
+        position: relative;
+        
+        box-sizing: border-box !important; 
+        
+        padding-left: 12px;
+        
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .outro-fallback-tabs { display: none !important; }
+
+    .outro-content-stage {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        justify-content: center;
+        opacity: 0;
+        transform: translate3d(0, 20px, 0);
+        will-change: transform, opacity;
+        
+        &.active-outro-stage { display: flex; }
+
+        &.run-stage-reveal {
+            animation: stageCyberEntrance 0.6s cubic-bezier(0.25, 1, 0.33, 1) forwards;
+
+            .animate-cascade {
+                opacity: 0;
+                transform: translate3d(0, 12px, 0);
+                @for $i from 1 through 10 {
+                    &:nth-child(#{$i}) {
+                        animation: elementCascadePass 0.45s cubic-bezier(0.25, 1, 0.33, 1) #{$i * 0.05}s forwards;
+                    }
+                }
+            }
+        }
+    }
+
+    /* ==========================================================================
+       HARDWARD BUDGET TERMINAL SYSTEM ENGINE (STABLE RE-LAYOUT)
+       ========================================================================== */
+    .ledger-mini-track {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        box-sizing: border-box !important;
+        
+        // 1. HARDLOCK VIEWPORT VERTICAL HEIGHT
+        height: 320px !important; 
+        max-height: 320px !important;
+        
+        // 2. UNLOCK INDEPENDENT VERTICAL SCROLLING
+        overflow-y: auto !important; 
+        overflow-x: hidden !important; 
+        padding-right: 12px; // Clear space so text doesn't touch the track bar
+        margin-bottom: 10px;
+
+        // 3. THIN MODERN SCROLLBAR INDICATORS (Firefox)
+        scrollbar-width: thin !important; 
+        scrollbar-color: color-mix(in srgb, var(--global-theme-color, #ff5e00) 40%, transparent) transparent !important;
+
+        // 4. THIN MODERN SCROLLBAR INDICATORS (Chrome, Safari, Edge)
+        &::-webkit-scrollbar {
+            display: block !important; 
+            width: 5px !important; // Minimal premium thickness profile
+        }
+
+        &::-webkit-scrollbar-track {
+            background: transparent !important; 
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: color-mix(in srgb, var(--global-theme-color, #ff5e00) 40%, transparent) !important;
+            border-radius: 10px !important;
+
+            &:hover {
+                background-color: var(--global-theme-color, #ff5e00) !important; // Glows fully on user hover focus
+            }
+        }
+    }
+
+    .ledger-mini-row {
+        position: relative;
+        display: grid !important;
+        grid-template-columns: 1fr 65px !important;
+        align-items: center !important;
+        gap: 16px;
+        border-bottom: 1px solid color-mix(in srgb, var(--global-text-color, #ffffff) 4%, transparent);
+        padding: 14px 18px;
+        margin: 0;
+        border-radius: 4px;
+        background-color: transparent;
+        
+        // FIXED STABILITY TWEAK: Removed 'height: 80px' 
+        // Replaced with an adaptive min-height framework to let container sizes expand with wrapping text lines
+        flex-shrink: 0 !important;
+        min-height: 80px !important; 
+        height: auto !important; // Permits container walls to stretch dynamically
+        box-sizing: border-box !important;
+        overflow: visible !important; // Lets child rows breath when expanding
+
+        transition: transform 0.3s cubic-bezier(0.25, 1, 0.33, 1),
+                    background-color 0.3s cubic-bezier(0.25, 1, 0.33, 1),
+                    border-color 0.3s ease;
+
+        &::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 3px;
+            height: 0%;
+            background-color: var(--global-theme-color, #ff5e00);
+            transform: translateY(-50%);
+            transition: height 0.3s cubic-bezier(0.25, 1, 0.33, 1);
+            border-radius: 0 2px 2px 0;
+        }
+
+        &:hover {
+            transform: translate3d(8px, 0, 0);
+            background-color: color-mix(in srgb, var(--global-text-color, #ffffff) 2%, transparent);
+            border-bottom-color: color-mix(in srgb, var(--global-text-color, #ffffff) 10%, transparent);
+
+            h5 a { color: var(--global-theme-color, #ff5e00) !important; }
+            .cost-tag { color: var(--global-theme-color, #ff5e00) !important; opacity: 1; }
+            &::before { height: 65%; }
+        }
+        
+        .bom-item-split-container {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            min-width: 0; 
+            overflow: visible; // Unlocked bounds
+        }
+
+        .bom-category-box {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex: 0 0 135px;
+            
+            font-family: var(--global-code-font, monospace);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            text-align: center;
+            
+            padding: 4px 6px;
+            border-radius: 4px;
+            background-color: color-mix(in srgb, var(--global-text-color, #ffffff) 4%, transparent);
+            border: 1px solid color-mix(in srgb, var(--global-text-color, #ffffff) 8%, transparent);
+            color: var(--global-text-color, #ffffff);
+            opacity: 0.75;
+            box-sizing: border-box;
+            flex-shrink: 0 !important;
+        }
+
+        .bom-content-block {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-width: 0;
+            overflow: visible;
+            
+            h5 {
+                margin: 0 0 4px 0; // Slightly increased bottom spacing
+                font-size: 0.94rem;
+                letter-spacing: 0.2px;
+                line-height: 1.35;
+                
+                // UNLOCKED TWO-LINE WRAPPING PARAMETERS
+                white-space: normal !important; 
+                overflow: visible !important;
+                text-overflow: clip !important;
+
+                a {
+                    color: var(--global-text-color, #ffffff);
+                    text-decoration: none;
+                    transition: color 0.25s ease;
+
+                    &:hover {
+                        color: var(--global-theme-color, #ff5e00) !important;
+                    }
+                }
+            }
+
+            p {
+                margin: 0;
+                font-size: 0.82rem;
+                line-height: 1.4;
+                color: var(--global-text-color, #ffffff);
+                opacity: 0.55;
+                
+                // UNLOCKED: Swapped to normal to let long sub-descriptions wrap onto lines 2 and 3 too!
+                white-space: normal !important; 
+                overflow: visible !important;
+                text-overflow: clip !important;
+            }
+        }
+
+        .cost-tag {
+            grid-column: 2 !important;
+            font-family: monospace; 
+            font-size: 0.90rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: var(--global-text-color, #ffffff);
+            opacity: 0.80;
+            white-space: nowrap;
+            text-align: right;
+            width: 100%;
+            display: block;
+        }
+    }
+
+    // THE FIXED STICKY DIAGNOSTICS CALCULATOR BAR
+    .ledger-summary-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 18px 0 18px;
+        width: 100%;
+        margin-top: 8px;
+        border-top: 2px solid color-mix(in srgb, var(--global-text-color, #ffffff) 8%, transparent); 
+        box-sizing: border-box !important;
+        
+        span.body-long {
+            font-size: 0.75rem !important; 
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            opacity: 0.4;
+            font-family: monospace;
+        }
+
+        span:last-child {
+            font-size: 1.35rem !important;
+            font-weight: 700;
+            color: var(--global-theme-color, #ff5e00);
+            font-family: monospace;
+            letter-spacing: -0.5px;
+            text-shadow: 0 0 15px color-mix(in srgb, var(--global-theme-color, #ff5e00) 30%, transparent); 
+        }
+    }
+
+    // REPOSITORY BLUEPRINT CARDS
+    .cyber-pillar-card {
+        border: 1px dashed color-mix(in srgb, var(--global-text-color) 12%, transparent);
+        border-radius: 6px;
+        padding: 24px;
+        box-sizing: border-box;
+        background-color: transparent;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+
+        &:hover {
+            border-color: var(--global-theme-color);
+            transform: translate3d(0, -4px, 0);
+            box-shadow: 0 10px 25px color-mix(in srgb, var(--global-theme-color) 6%, transparent);
+        }
+        
+        h4 {
+            color: var(--global-text-color);
+            opacity: 0.95;
+        }
+    }
+
+    // GITHUB MASTER TREE ASSETS BLOCK
+    .git-outro-center {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+
+        .git-huge-icon {
+            font-size: 4rem;
+            color: var(--global-text-color);
+            opacity: 0.15;
+            margin-bottom: 20px;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+        }
+
+        &:hover {
+            .git-huge-icon {
+                transform: scale(1.1) rotate(-6deg);
+                opacity: 0.8;
+                color: var(--global-theme-color);
+            }
+        }
+    }
+
+    @keyframes stageCyberEntrance {
+        from { opacity: 0; transform: translate3d(0, 20px, 0); }
+        to { opacity: 1; transform: translate3d(0, 0, 0); }
+    }
+
+    @keyframes elementCascadePass {
+        to { opacity: 1; transform: translate3d(0, 0, 0); }
+    }
+
+    /* ==========================================================================
+       MOBILE RESPONSIVE BREAKPOINT NESTING
+       ========================================================================== */
+    @media (max-width: 820px) {
+        margin-top: 20px;
+        margin-bottom: 40px;
+
+        .outro-structural-bounds { 
+            flex-direction: column; 
+            gap: 24px; 
+            align-items: stretch; 
+        }
+        
+        // FIXED COLLAPSIBLE MOBILE HULL OVERRIDE:
+        // Stripping out the desktop 600px hard-height rule on mobile viewports removes the invisible 
+        // layout block cage, allowing long panel elements to take up as much vertical room as they need.
+        .gear-viewport-hull { 
+            display: none !important; 
+            height: auto !important; // Completely clears out the layout vertical cage tracking constraints
+        }
+        
+        // Mobile fallback header bar layout (Hides native system scrollbar controls)
+        .outro-fallback-tabs { 
+            display: flex !important; 
+            width: 100%; 
+            border-bottom: 2px solid color-mix(in srgb, var(--global-text-color, #ffffff) 8%, transparent); 
+            padding: 0; 
+            margin: 0 0 20px 0; 
+            gap: 4px;
+            height: 48px; 
+            box-sizing: border-box;
+            overflow-x: auto; 
+            overflow-y: hidden; 
+            -webkit-overflow-scrolling: touch; 
+            scrollbar-width: none; 
+
+            &::-webkit-scrollbar {
+                display: none !important;
+                width: 0 !important;
+                height: 0 !important;
+                background: transparent !important;
+            }
+        }
+        
+        // Evenly distributed fallback buttons
+        .fallback-tab-btn { 
+            background: transparent; 
+            border: none; 
+            cursor: pointer; 
+            padding: 12px 6px; 
+            height: 100%; 
+            font-size: 0.82rem; 
+            font-weight: 500; 
+            color: var(--global-text-color, #ffffff); 
+            opacity: 0.4; 
+            white-space: nowrap; 
+            border-bottom: 2px solid transparent; 
+            margin-bottom: -2px; 
+            flex: 1; 
+            text-align: center;
+            position: relative;
+            z-index: 5; 
+            transition: opacity 0.25s cubic-bezier(0.25, 1, 0.33, 1),
+                        color 0.25s cubic-bezier(0.25, 1, 0.33, 1),
+                        border-color 0.25s cubic-bezier(0.25, 1, 0.33, 1);
+
+            &:hover {
+                opacity: 0.75 !important;
+                color: var(--global-theme-color, #ff5e00) !important;
+            }
+
+            // Activated orange line indicator assignment
+            &.active-fallback-tab { 
+                opacity: 1 !important; 
+                color: var(--global-theme-color, #ff5e00) !important; 
+                border-bottom: 2px solid var(--global-theme-color, #ff5e00) !important; 
+                font-weight: 700; 
+            } 
+        }
+        
+        // FIXED ADAPTIVE DRAWER CONTROLLER
+        .outro-console-chamber { 
+            width: 100%; 
+            height: auto !important; // Forces container boxes to stay perfectly dynamic
+            padding-left: 0; 
+            min-height: 0 !important; 
+        }
+        
+        .outro-content-stage { 
+            transform: none !important; 
+            height: auto !important; // Ensures download blocks can stretch the workspace
+            &.active-outro-stage { 
+                display: flex; 
+            } 
+        }
+        
+        // Hardware accelerated performance switch to resolve mobile text panel flickering bugs
+        .outro-content-stage.run-stage-reveal {
+            animation: stageMobileFadeEntrance 0.35s cubic-bezier(0.25, 1, 0.33, 1) forwards !important;
+
+            .animate-cascade {
+                opacity: 1 !important;
+                transform: none !important;
+                animation: none !important; // Stops conflicting desktop vertical layout shifts
+            }
+        }
+        
+        .ledger-mini-track { 
+            max-height: none; 
+            overflow-y: visible; 
+        }
+        
+        .ledger-mini-row {
+            padding: 12px 14px;
+            &::before { display: none !important; } 
+            &:hover { transform: none !important; background-color: transparent !important; }
+        }
+        
+        .ledger-summary-row {
+            padding: 16px 14px 0 14px;
+        }
+    }
+}
+
+@keyframes stageMobileFadeEntrance {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
 // ==========================================================================
 // Arthur's Software Console Interface Component Transition Pipeline
 // ==========================================================================
@@ -960,17 +1726,32 @@ ul.task-list input[type="checkbox"] {
     color: var(--global-text-color);
     opacity: 0.8;
 }
+
+// ARTHUR CARDS
 .card-container {
     border-left: 4px solid var(--global-theme-color);
     padding-left: 15px;
     height: 100%;
+    
+    transition: 
+      border-left-width 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
+
+// Separate helper class to manage text movement calculations
+.card-content-shift {
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    will-change: transform;
+}
+
 .card-title {
     font-size: 1rem;
     font-weight: bold;
     color: var(--global-text-color);
     margin-bottom: 5px !important;
+
+    transition: color 0.2s ease;
 }
+
 .card-body {
     line-height: 1.6 !important;
     font-size: 1rem;
@@ -979,6 +1760,187 @@ ul.task-list input[type="checkbox"] {
     color: var(--global-text-color);
     text-align: left;
 }
+
+/* Active Hover Handshake State */
+.card-container:hover {
+    border-left-width: 7px !important;
+    border-radius: 0 4px 4px 0;
+    
+    // Triggers the 5px rightward move smoothly on the text wrapper
+    .card-content-shift {
+        transform: translate3d(6px, 0, 0);
+    }
+    
+    // Triggers the orange accent title shift smoothly
+    .card-title {
+        color: var(--global-theme-color) !important;
+    }
+}
+
+/* ==========================================================================
+   ARTHUR'S 3D KINETIC RETROSPECTIVE FLIP CARDS MATRIX (.flip-cards ENGINE)
+   ========================================================================== */
+.flip-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 40px;
+    margin-bottom: 50px;
+    perspective: 1200px; /* Activates high-fidelity 3D depth calculations */
+
+    // Individual Card Viewport Boundaries
+    .flip-card-3d-wrapper {
+        flex: 1 1 calc(33.333% - 16px); // Balanced 3-column layout base threshold
+        min-width: 280px; 
+        height: 250px; 
+        perspective: 1000px;
+        box-sizing: border-box;
+        opacity: 0;
+        transform: translate3d(0, 30px, 0);
+        will-change: transform, opacity;
+        
+        // CASCADING MICRO-DELAY SPAWNING CONTROLLER Matrix
+        @for $i from 1 through 5 {
+            &:nth-of-type(#{$i}) {
+                transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1) #{$i * 0.12}s, 
+                            opacity 0.6s ease #{$i * 0.12}s;
+            }
+        }
+    }
+
+    // Active Spawning Trigger class injected when focus group clears horizons
+    &.spawn-active .flip-card-3d-wrapper {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+
+    // The Inner Kinetic Rotational Engine Node
+    .flip-card-inner-engine {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-align: left;
+        transform-style: preserve-3d;
+        cursor: pointer;
+        
+        // Custom Overshoot Spring Rotation Profile
+        transition: transform 0.75s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+        // Core Rotational State Trigger
+        &.is-flipped {
+            transform: rotateY(180deg);
+        }
+    }
+
+    // Symmetrical Front and Back Facing Plate Manifolds
+    .card-face-front, .card-face-back {
+        position: absolute;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden; // Slices passing occlusions out of browser render pools
+        border-radius: 6px;
+        padding: 24px;
+        box-sizing: border-box !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between; // Pins hints perfectly to the lower margins
+        border: 1px solid color-mix(in srgb, var(--global-text-color) 12%, transparent);
+        transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    // Front Face Spec Base (Prototype Defect)
+    .card-face-front {
+        background-color: var(--global-card-bg-color) !important;
+        color: var(--global-text-color);
+
+        &:hover {
+            border-color: color-mix(in srgb, var(--global-text-color) 35%, transparent);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+    }
+
+    // Back Face Spec Base (Next-Gen Upgrade)
+    .card-face-back {
+        background-color: var(--global-card-bg-color) !important;
+        color: var(--global-text-color);
+        transform: rotateY(180deg); // Flipped baseline orientation mapping
+
+        &:hover {
+            border-color: var(--global-theme-color);
+            box-shadow: 0 10px 25px color-mix(in srgb, var(--global-theme-color) 12%, transparent);
+        }
+    }
+
+    // Metadata Tracking Fonts Spec Matrix
+    .meta-flag {
+        font-family: monospace;
+        font-size: 0.68rem;
+        letter-spacing: 1px;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .hint-flag {
+        font-family: monospace;
+        font-size: 0.65rem;
+        letter-spacing: 0.5px;
+        opacity: 0.4;
+        text-transform: uppercase;
+        padding-top: 14px;
+        margin-top: auto; 
+    }
+
+    h4 {
+        margin: 0 0 10px 0;
+        font-size: 1.1rem;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+    }
+
+    p {
+        margin: 0;
+        font-size: 0.88rem;
+        line-height: 1.55;
+        opacity: 0.8;
+    }
+
+    // Responsive Mobile Stacking Collapse Brackets
+    @media (max-width: 900px) {
+        .flip-card-3d-wrapper {
+            flex: 1 1 calc(50% - 12px); // Drops to balanced 2-column matrix on small laptops
+        }
+    }
+
+    // ==========================================================================
+    // FIXED MOBILE SWIPE-SNAP CAROUSEL TUNING ENGINE (HEADROOM BUG REPAIRED)
+    // ==========================================================================
+    @media (max-width: 680px) {
+        display: flex !important;
+        flex-wrap: nowrap !important; 
+        flex-direction: row !important;
+        overflow-x: auto !important; 
+        scroll-snap-type: x mandatory !important; 
+        -webkit-overflow-scrolling: touch;
+        gap: 16px;
+        padding-top: 16px !important;    // FIXED: Strategic top cushion buffer safeguards spinning horizons
+        padding-bottom: 24px !important; // FIXED: Strategic bottom cushion clears touch tracking rails
+        padding-left: 4px;
+        padding-right: 4px;
+        
+        .flip-card-3d-wrapper {
+            flex: 0 0 calc(100% - 20px) !important; 
+            width: calc(100% - 20px) !important;
+            height: 275px !important; /* FIXED: Elevated from 240px to grant immaculate vertical content space headroom */
+            scroll-snap-align: center !important; 
+        }
+    }
+}
+
     
 
 /* --- DESKTOP AND MOBILE LAYOUT CONTROLS --- */

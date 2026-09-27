@@ -78,7 +78,7 @@
 html[data-theme="dark"] {
   color-scheme: dark;
   --global-bg-color: #040404;
-  --global-code-bg-color: #{v.$code-bg-color-dark};
+  --global-code-bg-color: #1b1d22;
   --global-text-color: #efe6df;
   --global-text-color-dark: #9b8f79;
   --global-theme-color: #EE421B;
@@ -90,7 +90,7 @@ html[data-theme="dark"] {
   --global-footer-link-color: #{v.$black-color};
   --global-distill-app-color: #{v.$grey-color-light};
   --global-divider-color: rgba(239, 230, 223, 0.25);
-  --global-card-bg-color: #{v.$grey-900};
+  --global-card-bg-color: #101114;
   --global-back-to-top-bg-color: rgba(
     #{color.channel(v.$white-color, "red", v.$space: rgb)},
     #{color.channel(v.$white-color, "green", v.$space: rgb)},
