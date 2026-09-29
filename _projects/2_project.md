@@ -63,6 +63,7 @@ related_publications: false
             <div class="shadowy zoomy8" style="width: 100%; aspect-ratio: 1 / 1;">
                 <img src="{{ 'assets/img/projects/self-balancing-robot-v1/demo_balancing.gif' | relative_url }}" 
                      alt="V1 Prototype Active Balancing Loop" 
+                     draggable="false"
                      style="width: 100%; height: 100%; object-fit: contain;"> 
             </div>
             
@@ -241,6 +242,7 @@ related_publications: false
                 <img class="img-zoomable" data-zoomable
                     src="{{ 'assets/img/projects/self-balancing-robot-v1/breadboard.jpg' | relative_url }}" 
                     alt="Physical Dual Half-Size Breadboard Prototyping Assembly" 
+                    draggable="false"
                     style="width: 100%; height: 100%; object-fit: cover;">   
             </div>
             <div class="image-caption">
@@ -255,6 +257,7 @@ related_publications: false
                 <img class="img-zoomable" data-zoomable
                     src="{{ 'assets/img/projects/self-balancing-robot-v1/circuit-schematic.png' | relative_url }}" 
                     alt="Electrical Circuit Diagram Schematic" 
+                    draggable="false"
                     style="width: 110%; height: 110%; object-fit: fit;">
             </div>
             <div class="image-caption">

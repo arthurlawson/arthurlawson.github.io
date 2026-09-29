@@ -47,7 +47,7 @@ layout: default
           {% if page.profile.image %}
             {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
             <div class="shadowy zoomy20" style="width: 100%; aspect-ratio: 1 / 1; overflow: hidden; border-radius: 50%; border: 2px solid var(--global-text-color);">
-              <img src="{{ profile_image_path | relative_url }}" class="img-fluid" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+              <img src="{{ profile_image_path | relative_url }}" class="img-fluid" draggable="false" style="width: 100%; height: 100%; object-fit: cover; display: block;">
             </div>
           {% endif %}
         </div>

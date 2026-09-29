@@ -1,6 +1,9 @@
 <div class="col">
   <a href="{% if project.redirect %}{{ project.redirect }}{% else %}{{ project.url | relative_url }}{% endif %}">
-    <div class="card h-100 shadowy hovery5 clicky zoomy10" style="overflow: hidden !important;">
+    <div class="card h-100 shadowy hovery5 zoomy10" 
+     style="overflow: hidden !important; -webkit-user-drag: none; user-select: none;"
+     onmousedown="event.preventDefault();"
+     ondragstart="return false;">
 
       {% if project.img %}
         <div style="aspect-ratio: 16 / 9 !important; width: 100% !important; overflow: hidden !important; position: relative !important;">
